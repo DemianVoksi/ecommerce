@@ -1,4 +1,5 @@
 import React from 'react';
+import 'loggedInOutButtons.css';
 
 export const LoggedOutButtons = () => {
 	return (
