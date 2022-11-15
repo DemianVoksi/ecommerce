@@ -1,5 +1,13 @@
 import React from 'react';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
 export const Cart = () => {
-	return <div></div>;
+	return (
+		<div>
+			<Header />
+			{/* content */}
+			<Footer />
+		</div>
+	);
 };
