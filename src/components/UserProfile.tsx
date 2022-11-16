@@ -7,6 +7,7 @@ export const UserProfile = () => {
 		<div>
 			<Header />
 			{/* content */}
+			<p>User profile page</p>
 			<Footer />
 		</div>
 	);

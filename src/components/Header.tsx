@@ -13,6 +13,7 @@ export const Header = () => {
 				{/*
         loggedIn ? <LoggedInButtons /> : <LoggedOutButtons />
         */}
+				<button>Go to login</button>
 			</div>
 		</div>
 	);

@@ -7,6 +7,7 @@ import { Inventory } from './Inventory';
 export const Main = () => {
 	return (
 		<div className='main-wrapper'>
+			<p>Main page</p>
 			<Header />
 			<Inventory />
 			<Footer />
