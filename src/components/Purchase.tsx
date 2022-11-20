@@ -4,7 +4,7 @@ import { Header } from './Header';
 
 export const Purchase = () => {
 	return (
-		<div>
+		<div className='purchase'>
 			<Header />
 			{/* content */}
 			<Footer />

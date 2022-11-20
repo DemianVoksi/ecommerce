@@ -1,5 +1,10 @@
 import React from 'react';
+import { Header } from './Header';
 
 export const Product = () => {
-	return <div></div>;
+	return (
+		<div className='product'>
+			<Header />
+		</div>
+	);
 };

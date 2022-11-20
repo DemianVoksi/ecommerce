@@ -1,5 +1,6 @@
 import React from 'react';
 import 'loggedInOutButtons.css';
+import { Link } from 'react-router-dom';
 
 export const LoggedInButtons = () => {
 	return (
@@ -8,7 +9,9 @@ export const LoggedInButtons = () => {
 			id='logged-in-buttons-wrapper'
 		>
 			<button className='button'>Log out</button>
-			<button className='button'>View cart</button>
+			<Link to='/cart'>
+				<button className='button'>View cart</button>
+			</Link>
 		</div>
 	);
 };

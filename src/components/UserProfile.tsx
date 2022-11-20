@@ -4,7 +4,7 @@ import { Header } from './Header';
 
 export const UserProfile = () => {
 	return (
-		<div>
+		<div className='user-profile'>
 			<Header />
 			{/* content */}
 			<p>User profile page</p>
