@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -11,6 +11,8 @@ import {
 type UserContextProviderProps = {
 	children: React.ReactNode;
 };
+
+// define types of all value variables
 
 export const SiteContext = createContext({});
 
@@ -102,4 +104,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			{children}
 		</SiteContext.Provider>
 	);
+};
+
+export const useAuth = () => {
+	return useContext(SiteContext);
 };
