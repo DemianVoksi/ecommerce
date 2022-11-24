@@ -9,7 +9,7 @@ type ProtectedRouteProps = {
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 	const auth = useAuth();
 
-	if (!auth.user) {
+	if (!auth?.user) {
 		return <Navigate to='/' />;
 	}
 	return children;
