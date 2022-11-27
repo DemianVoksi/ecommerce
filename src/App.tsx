@@ -7,6 +7,7 @@ import { Main } from './components/Main';
 import { Purchase } from './components/Purchase';
 import { UserProfile } from './components/UserProfile';
 import { ContextProvider } from './utils/ContextProvider';
+import { ProtectedRoute } from './utils/ProtectedRoute';
 // where does className='App' go when you put in the React Router
 
 function App() {
@@ -19,8 +20,14 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Main />} />
-					{/* User-profile should be protected */}
-					<Route path='user-profile' element={<UserProfile />} />
+					<Route
+						path='/user-profile'
+						element={
+							<ProtectedRoute>
+								<UserProfile />
+							</ProtectedRoute>
+						}
+					></Route>
 					<Route path='login' element={<Login />} />
 					<Route path='cart' element={<Cart />} />
 					<Route path='purchase' element={<Purchase />} />

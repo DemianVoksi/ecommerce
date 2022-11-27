@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import {
 	createUserWithEmailAndPassword,
+	UserCredential,
 	signInWithEmailAndPassword,
 	getAuth,
 	signOut,
@@ -29,14 +30,14 @@ type ValueTypes = {
 	setCart: React.Dispatch<React.SetStateAction<never[]>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
-	// login: (
-	// 	loginEmail: string,
-	// 	loginPassword: string
-	// ) => Promise<UserCredential | undefined>;
-	// register: (
-	// 	registerEmail: string,
-	// 	registerPassword: string
-	// ) => Promise<UserCredential | undefined>;
+	login: (
+		loginEmail: string,
+		loginPassword: string
+	) => Promise<UserCredential | undefined>;
+	register: (
+		registerEmail: string,
+		registerPassword: string
+	) => Promise<UserCredential | undefined>;
 	logout: () => Promise<void>;
 	addItemToCart: () => void;
 	purchaseItems: () => void;
@@ -132,8 +133,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setCart,
 				toBuy,
 				setToBuy,
-				// login,
-				// register,
+				login,
+				register,
 				logout,
 				addItemToCart,
 				purchaseItems,
