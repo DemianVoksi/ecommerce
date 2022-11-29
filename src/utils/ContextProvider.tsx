@@ -8,6 +8,13 @@ import {
 	onAuthStateChanged,
 	Auth
 } from 'firebase/auth';
+import {
+	collection,
+	CollectionReference,
+	DocumentData,
+	getDocs
+} from 'firebase/firestore';
+import { db } from './firebaseConfig';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -30,6 +37,13 @@ type ValueTypes = {
 	setCart: React.Dispatch<React.SetStateAction<never[]>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
+	allProducts: DocumentData | null;
+	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
+	productsCollectionRef: CollectionReference<DocumentData>;
+	currentProduct: DocumentData | null;
+	setCurrentProduct: React.Dispatch<
+		React.SetStateAction<DocumentData[] | null>
+	>;
 	login: (
 		loginEmail: string,
 		loginPassword: string
@@ -42,6 +56,7 @@ type ValueTypes = {
 	addItemToCart: () => void;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
+	fetchProducts: () => Promise<void>;
 	fireAuth: Auth;
 };
 
@@ -57,6 +72,21 @@ you could also import just firebase and consume firebase.auth.UserCredential
 
 export const SiteContext = createContext<ValueTypes | null>(null);
 
+export interface CurrentProduct {
+	name: string;
+	producer: string;
+	price: number;
+	processor: string;
+	memory: number;
+	storage: string;
+	storageNum: number;
+	os: string;
+	weight: number;
+	screenSize: string;
+	screenSizeNum: number;
+	// id: string[];
+}
+
 export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [registerEmail, setRegisterEmail] = useState('');
 	const [registerPassword, setRegisterPassword] = useState('');
@@ -66,10 +96,19 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [cart, setCart] = useState([]);
 	const [toBuy, setToBuy] = useState([]);
+	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
+	const [currentProduct, setCurrentProduct] = useState<DocumentData[] | null>(
+		null
+	);
 	const fireAuth = getAuth();
+	const productsCollectionRef = collection(db, 'products');
 
 	/////////// ADD USE EFFECT
 
+	const fetchProducts = async () => {
+		const data = await getDocs(productsCollectionRef);
+		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+	};
 	// buttons
 
 	const register = async (registerEmail: string, registerPassword: string) => {
@@ -133,12 +172,18 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setCart,
 				toBuy,
 				setToBuy,
+				allProducts,
+				setAllProducts,
+				currentProduct,
+				setCurrentProduct,
+				productsCollectionRef,
 				login,
 				register,
 				logout,
 				addItemToCart,
 				purchaseItems,
 				purchaseCart,
+				fetchProducts,
 				fireAuth
 			}}
 		>
