@@ -2,20 +2,20 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './ContextProvider';
 
-type ProtectedRouteProps = {
+type ProtectedLoginProps = {
 	children: React.ReactNode;
 };
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+export const ProtectedLogin = ({ children }: ProtectedLoginProps) => {
 	const auth = useAuth();
 
 	if (auth?.user) {
-		return <>{children}</>;
-	} else {
 		return (
 			<>
 				<Navigate to='/' />
 			</>
 		);
+	} else {
+		return <>{children}</>;
 	}
 };

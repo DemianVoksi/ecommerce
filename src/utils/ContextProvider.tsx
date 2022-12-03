@@ -5,7 +5,7 @@ import {
 	signInWithEmailAndPassword,
 	getAuth,
 	signOut,
-	onAuthStateChanged,
+	// onAuthStateChanged,
 	Auth
 } from 'firebase/auth';
 import {
@@ -56,17 +56,10 @@ type ValueTypes = {
 	addItemToCart: () => void;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
+	emptyCart: () => void;
 	fetchProducts: () => Promise<void>;
 	fireAuth: Auth;
 };
-
-/*
-For login and register:
-
-Ok I guess I figured it out. I had to import it and use it like this, import { auth } from 'firebase';
-const myCallback = (result: auth.UserCredential) => { //function contents }
-you could also import just firebase and consume firebase.auth.UserCredential
-*/
 
 // define types of all value variables
 
@@ -153,6 +146,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 	const purchaseCart = () => {};
 
+	const emptyCart = () => {};
+
 	return (
 		<SiteContext.Provider
 			value={{
@@ -183,6 +178,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				addItemToCart,
 				purchaseItems,
 				purchaseCart,
+				emptyCart,
 				fetchProducts,
 				fireAuth
 			}}
