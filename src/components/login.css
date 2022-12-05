@@ -1,32 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
+
 h4 {}
 
 p {}
 
-.login-page-wrapper {}
+.login-page-wrapper {
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.login-head-text {}
+.login-head-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 25px;
+  margin-bottom: 22vh;
+}
 
-.both-forms-wrapper {}
+.both-forms-wrapper {
+  width: 50vh;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.one-form-wrapper {}
+.one-form-wrapper {
+  background-color: #dcdcdc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 20px 20px 20px;
+}
 
-.form {}
+.form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.form-email-wrapper {}
+.form-title-p {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+
+}
+
+.form-email-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+}
 
 .form-label-email {}
 
 .form-input-email {}
 
-.form-password-wrapper {}
+.form-password-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+}
 
 .form-label-password {}
 
 .form-input-password {}
 
-.button-container {}
+.button-container {
+  margin-top: 10px;
+}
 
-.form-button {}
+.form-button {
+  padding: 5px 10px;
+}
 
 #register-form {}
 

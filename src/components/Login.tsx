@@ -14,13 +14,13 @@ export const Login = () => {
 	return (
 		<div className='login-page-wrapper'>
 			<div className='login-head-text'>
-				<h4>Login or register a new account</h4>
+				<h4>Log in or register a new account</h4>
 			</div>
 
 			<div className='both-forms-wrapper'>
 				<div className='one-form-wrapper' id='register-form-wrapper'>
 					<form className='form' id='register-form' onSubmit={handleRegister}>
-						<p>Register</p>
+						<p className='form-title-p'>Register</p>
 						<div className='form-email-wrapper'>
 							<label className='form-label-email' htmlFor='register-email'>
 								Email:{' '}
@@ -63,8 +63,7 @@ export const Login = () => {
 
 				<div className='one-form-wrapper' id='login-form-wrapper'>
 					<form className='form' id='login-form' onSubmit={handleLogin}>
-						<p>Login</p>
-						<p>Log in</p>
+						<p className='form-title-p'>Log in</p>
 						<div className='form-email-wrapper'>
 							<label className='form-label-email' htmlFor='login-email'>
 								Email:{' '}
