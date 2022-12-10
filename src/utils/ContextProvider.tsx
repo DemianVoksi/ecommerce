@@ -150,7 +150,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 	const purchaseCart = () => {};
 
-	const emptyCart = () => {};
+	const emptyCart = () => {}; // preimenuj u removeItemFromCart
 
 	return (
 		<SiteContext.Provider
