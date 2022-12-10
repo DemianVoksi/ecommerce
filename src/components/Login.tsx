@@ -2,12 +2,14 @@ import React from 'react';
 import './login.css';
 
 export const Login = () => {
-	const handleRegister = () => {
+	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		// firebase register
 		// create new cart
 	};
 
-	const handleLogin = () => {
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		// firebase login
 	};
 

@@ -1,12 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
 	createUserWithEmailAndPassword,
 	UserCredential,
 	signInWithEmailAndPassword,
 	getAuth,
 	signOut,
-	// onAuthStateChanged,
-	Auth
+	Auth,
+	onAuthStateChanged
 } from 'firebase/auth';
 import {
 	collection,
@@ -96,14 +96,18 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
 
-	/////////// ADD USE EFFECT
+	useEffect(() => {
+		onAuthStateChanged(fireAuth, (user) => {
+			setUser(user!);
+		});
+	}, []);
 
 	const fetchProducts = async () => {
 		const data = await getDocs(productsCollectionRef);
 		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 	};
-	// buttons
 
+	// buttons
 	const register = async (registerEmail: string, registerPassword: string) => {
 		try {
 			const newUser = await createUserWithEmailAndPassword(

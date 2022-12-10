@@ -13,9 +13,7 @@ import { ProtectedRoute } from './utils/ProtectedRoute';
 function App() {
 	return (
 		<div className='App'>
-			<Login />
-
-			{/* <ContextProvider>
+			<ContextProvider>
 				<BrowserRouter>
 					<Routes>
 						<Route path='/' element={<Main />} />
@@ -40,7 +38,7 @@ function App() {
 						<Route path='/purchase' element={<Purchase />} />
 					</Routes>
 				</BrowserRouter>
-			</ContextProvider> */}
+			</ContextProvider>
 		</div>
 	);
 }
