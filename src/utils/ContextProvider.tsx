@@ -11,8 +11,10 @@ import {
 import {
 	collection,
 	CollectionReference,
+	doc,
 	DocumentData,
-	getDocs
+	getDocs,
+	setDoc
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 
@@ -40,6 +42,7 @@ type ValueTypes = {
 	allProducts: DocumentData | null;
 	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
 	productsCollectionRef: CollectionReference<DocumentData>;
+	cartsCollectionRef: CollectionReference<DocumentData>;
 	currentProduct: DocumentData | null;
 	setCurrentProduct: React.Dispatch<
 		React.SetStateAction<DocumentData[] | null>
@@ -53,10 +56,11 @@ type ValueTypes = {
 		registerPassword: string
 	) => Promise<UserCredential | undefined>;
 	logout: () => Promise<void>;
+	createNewCart: (userID: string) => void;
 	addItemToCart: () => void;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
-	emptyCart: () => void;
+	removeItemFromCart: () => void;
 	fetchProducts: () => Promise<void>;
 	fireAuth: Auth;
 };
@@ -95,6 +99,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	);
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
+	const cartsCollectionRef = collection(db, 'carts');
 
 	useEffect(() => {
 		onAuthStateChanged(fireAuth, (user) => {
@@ -144,13 +149,20 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		}
 	};
 
+	const createNewCart = async (userID: string) => {
+		await setDoc(doc(cartsCollectionRef), {
+			owner: userID,
+			cart: []
+		});
+	};
+
 	const addItemToCart = () => {};
 
 	const purchaseItems = () => {};
 
 	const purchaseCart = () => {};
 
-	const emptyCart = () => {}; // preimenuj u removeItemFromCart
+	const removeItemFromCart = () => {};
 
 	return (
 		<SiteContext.Provider
@@ -176,13 +188,15 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				currentProduct,
 				setCurrentProduct,
 				productsCollectionRef,
+				cartsCollectionRef,
 				login,
 				register,
 				logout,
+				createNewCart,
 				addItemToCart,
 				purchaseItems,
 				purchaseCart,
-				emptyCart,
+				removeItemFromCart,
 				fetchProducts,
 				fireAuth
 			}}

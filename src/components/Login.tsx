@@ -4,20 +4,21 @@ import { SiteContext, useAuth } from '../utils/ContextProvider';
 import './login.css';
 
 export const Login = () => {
-	const value = React.useContext(SiteContext);
+	const value = React.useContext(SiteContext)!;
 	const auth = useAuth();
 	const navigate = useNavigate();
 
 	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await auth?.register(value!.registerEmail, value!.registerPassword);
+		await auth?.register(value.registerEmail, value.registerPassword);
+		value.createNewCart(value.registerEmail);
 		navigate('/');
 		// create new cart
 	};
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await auth?.login(value!.loginEmail, value!.loginPassword);
+		await auth?.login(value.loginEmail, value.loginPassword);
 		navigate('/');
 	};
 
@@ -44,7 +45,7 @@ export const Login = () => {
 								maxLength={50}
 								required
 								value={value!.registerEmail}
-								onChange={(e) => value!.setRegisterEmail(e.target.value)}
+								onChange={(e) => value.setRegisterEmail(e.target.value)}
 							/>
 						</div>
 						<div className='form-password-wrapper'>
@@ -60,7 +61,7 @@ export const Login = () => {
 								name='register-password'
 								placeholder='Enter password...'
 								value={value!.registerPassword}
-								onChange={(e) => value!.setRegisterPassword(e.target.value)}
+								onChange={(e) => value.setRegisterPassword(e.target.value)}
 							/>
 						</div>
 						<div className='button-container'>
@@ -87,7 +88,7 @@ export const Login = () => {
 								maxLength={50}
 								required
 								value={value!.loginEmail}
-								onChange={(e) => value!.setLoginEmail(e.target.value)}
+								onChange={(e) => value.setLoginEmail(e.target.value)}
 							/>
 						</div>
 						<div className='form-password-wrapper'>
@@ -100,7 +101,7 @@ export const Login = () => {
 								name='login-password'
 								placeholder='Enter password...'
 								value={value!.loginPassword}
-								onChange={(e) => value!.setLoginPassword(e.target.value)}
+								onChange={(e) => value.setLoginPassword(e.target.value)}
 							/>
 						</div>
 						<div className='button-container'>
