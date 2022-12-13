@@ -112,7 +112,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 	};
 
-	// buttons
 	const register = async (registerEmail: string, registerPassword: string) => {
 		try {
 			const newUser = await createUserWithEmailAndPassword(

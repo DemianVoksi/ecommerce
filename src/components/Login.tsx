@@ -13,7 +13,6 @@ export const Login = () => {
 		await auth?.register(value.registerEmail, value.registerPassword);
 		value.createNewCart(value.registerEmail);
 		navigate('/');
-		// create new cart
 	};
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {

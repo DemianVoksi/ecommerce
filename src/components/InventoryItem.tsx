@@ -1,6 +1,11 @@
 import React from 'react';
-import 'inventoryItem.css';
+import './inventoryItem.css';
 
-export const InventoryItem = () => {
-	return <div className='inventory-item-wrapper'></div>;
+export const InventoryItem = ({ ...prod }) => {
+	return (
+		<div className='inventory-item-wrapper'>
+			<p>{prod.name}</p>
+			<p>{prod.memory}</p>
+		</div>
+	);
 };

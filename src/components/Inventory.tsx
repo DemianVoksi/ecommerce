@@ -1,32 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './inventory.css';
-// import { InventoryItem } from './InventoryItem';
+import { InventoryItem } from './InventoryItem';
 import { db } from '../utils/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, DocumentData, getDocs } from 'firebase/firestore';
 import { SiteContext } from '../utils/ContextProvider';
 
 export const Inventory = () => {
-	////////////////////////////////// provjera da li radi
-	const productsCollectionRef = collection(db, 'products');
 	const value = React.useContext(SiteContext)!;
 
-	const getProducts = async () => {
-		const data = await getDocs(productsCollectionRef);
-		data.docs.map((doc) => console.log(doc.data()));
-		// value.createNewCart();
-		// doc.id je id
-		// doc.data() je data{}
-	};
-	//////////////////////////////////////////////////////
+	useEffect(() => {
+		value.fetchProducts();
+	}, []);
 
-	return (
-		<div className='inventory-wrapper'>
-			<button onClick={getProducts}>inventory</button>
-			{/*
-		firebaseInventoryItems.map((item) => {
-			<InventoryItem item={item} />
-		})
-		*/}
-		</div>
-	);
+	if (value.allProducts) {
+		return (
+			<div className='inventory-wrapper'>
+				{value.allProducts!.map((prod: DocumentData) => (
+					<div key={prod.id}>
+						<InventoryItem {...prod} />
+					</div>
+				))}
+			</div>
+		);
+	} else return <p>Loading...</p>;
 };
