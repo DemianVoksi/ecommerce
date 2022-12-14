@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SiteContext } from '../utils/ContextProvider';
 import './header.css';
 import { LoggedInButtons } from './LoggedInButtons';
 import { LoggedOutButtons } from './LoggedOutButtons';
 
 export const Header = () => {
+	const value = React.useContext(SiteContext);
+
 	return (
 		<div className='header-wrapper'>
 			<div className='logo-wrapper'>
 				<h4 className='logo'>Logo</h4>
 			</div>
 			<div className='header-buttons'>
-				{/*
-        loggedIn ? <LoggedInButtons /> : <LoggedOutButtons />
-        */}
+				{value?.isLoggedIn ? <LoggedInButtons /> : <LoggedOutButtons />}
 			</div>
 		</div>
 	);

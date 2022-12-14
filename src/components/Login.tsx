@@ -4,20 +4,48 @@ import { SiteContext, useAuth } from '../utils/ContextProvider';
 import './login.css';
 
 export const Login = () => {
-	const value = React.useContext(SiteContext)!;
+	const values = React.useContext(SiteContext)!;
 	const auth = useAuth();
 	const navigate = useNavigate();
 
 	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await auth?.register(value.registerEmail, value.registerPassword);
-		value.createNewCart(value.registerEmail);
+
+		// check if user already exists
+
+		await auth?.register(values.registerEmail, values.registerPassword);
+		values.createNewCart(values.registerEmail);
+
+		const registerEmailInput = document.getElementById(
+			'register-email'
+		) as HTMLInputElement;
+		registerEmailInput.value = '';
+		const registerPasswordInput = document.getElementById(
+			'register-password'
+		) as HTMLInputElement;
+		registerPasswordInput.value = '';
+
 		navigate('/');
 	};
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await auth?.login(value.loginEmail, value.loginPassword);
+
+		await auth?.login(values.loginEmail, values.loginPassword);
+
+		const loginEmailInput = document.getElementById(
+			'login-email'
+		) as HTMLInputElement;
+		loginEmailInput.value = '';
+		const loginPasswordInput = document.getElementById(
+			'login-password'
+		) as HTMLInputElement;
+		loginPasswordInput.value = '';
+
+		navigate('/');
+	};
+
+	const HandleReturnHome = () => {
 		navigate('/');
 	};
 
@@ -37,14 +65,15 @@ export const Login = () => {
 							</label>
 							<input
 								className='form-input-email'
+								id='register-email'
 								type='email'
 								name='register-email'
 								placeholder='Enter email...'
 								minLength={6}
 								maxLength={50}
 								required
-								value={value!.registerEmail}
-								onChange={(e) => value.setRegisterEmail(e.target.value)}
+								value={values!.registerEmail}
+								onChange={(e) => values.setRegisterEmail(e.target.value)}
 							/>
 						</div>
 						<div className='form-password-wrapper'>
@@ -56,11 +85,13 @@ export const Login = () => {
 							</label>
 							<input
 								className='form-input-password'
+								id='register-password'
 								type='password'
 								name='register-password'
 								placeholder='Enter password...'
-								value={value!.registerPassword}
-								onChange={(e) => value.setRegisterPassword(e.target.value)}
+								minLength={8}
+								value={values!.registerPassword}
+								onChange={(e) => values.setRegisterPassword(e.target.value)}
 							/>
 						</div>
 						<div className='button-container'>
@@ -80,14 +111,15 @@ export const Login = () => {
 							</label>
 							<input
 								className='form-input-email'
+								id='login-email'
 								type='email'
 								name='login-email'
 								placeholder='Enter email...'
 								minLength={6}
 								maxLength={50}
 								required
-								value={value!.loginEmail}
-								onChange={(e) => value.setLoginEmail(e.target.value)}
+								value={values!.loginEmail}
+								onChange={(e) => values.setLoginEmail(e.target.value)}
 							/>
 						</div>
 						<div className='form-password-wrapper'>
@@ -96,17 +128,24 @@ export const Login = () => {
 							</label>
 							<input
 								className='form-input-password'
+								id='login-password'
 								type='password'
 								name='login-password'
 								placeholder='Enter password...'
-								value={value!.loginPassword}
-								onChange={(e) => value.setLoginPassword(e.target.value)}
+								minLength={8}
+								value={values!.loginPassword}
+								onChange={(e) => values.setLoginPassword(e.target.value)}
 							/>
 						</div>
 						<div className='button-container'>
 							<button className='form-button'>Log in</button>
 						</div>
 					</form>
+					<div className='return-home-container'>
+						<button className='form-button' onClick={HandleReturnHome}>
+							Return to home page
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

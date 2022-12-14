@@ -120,6 +120,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				registerPassword
 			);
 			console.log(newUser.user.email);
+			setIsLoggedIn(true);
 			return newUser;
 		} catch (error) {
 			console.log(error);
@@ -134,6 +135,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				loginPassword
 			);
 			console.log(user.user.email);
+			setIsLoggedIn(true);
 			return user;
 		} catch (error) {
 			console.log(error);
@@ -143,6 +145,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const logout = async () => {
 		try {
 			await signOut(fireAuth);
+			setIsLoggedIn(false);
 		} catch (error) {
 			console.log(error);
 		}
