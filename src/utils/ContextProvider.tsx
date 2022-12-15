@@ -1,13 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {
-	createUserWithEmailAndPassword,
-	UserCredential,
-	signInWithEmailAndPassword,
-	getAuth,
-	signOut,
-	Auth,
-	onAuthStateChanged
-} from 'firebase/auth';
+import { getAuth, signOut, Auth, onAuthStateChanged } from 'firebase/auth';
 import {
 	collection,
 	CollectionReference,
@@ -17,6 +9,7 @@ import {
 	setDoc
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
+// import { FirebaseError } from 'firebase/app';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -47,14 +40,6 @@ type ValueTypes = {
 	setCurrentProduct: React.Dispatch<
 		React.SetStateAction<DocumentData[] | null>
 	>;
-	login: (
-		loginEmail: string,
-		loginPassword: string
-	) => Promise<UserCredential | undefined>;
-	register: (
-		registerEmail: string,
-		registerPassword: string
-	) => Promise<UserCredential | undefined>;
 	logout: () => Promise<void>;
 	createNewCart: (userID: string) => void;
 	addItemToCart: () => void;
@@ -65,24 +50,24 @@ type ValueTypes = {
 	fireAuth: Auth;
 };
 
+// export interface CurrentProduct {
+// 	name: string;
+// 	producer: string;
+// 	price: number;
+// 	processor: string;
+// 	memory: number;
+// 	storage: string;
+// 	storageNum: number;
+// 	os: string;
+// 	weight: number;
+// 	screenSize: string;
+// 	screenSizeNum: number;
+// 	id: string[];
+// }
+
 // define types of all value variables
 
 export const SiteContext = createContext<ValueTypes | null>(null);
-
-export interface CurrentProduct {
-	name: string;
-	producer: string;
-	price: number;
-	processor: string;
-	memory: number;
-	storage: string;
-	storageNum: number;
-	os: string;
-	weight: number;
-	screenSize: string;
-	screenSizeNum: number;
-	// id: string[];
-}
 
 export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [registerEmail, setRegisterEmail] = useState('');
@@ -91,6 +76,13 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [loginPassword, setLoginPassword] = useState('');
 	const [user, setUser] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	/* 
+	isLoggedIn gets messed up when a logged in user refreshes the page. 
+	It logs the user out, but leaves the isLoggedIn as true, and the login page
+	can't be accessed.
+	Session storage?
+	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
+	*/
 	const [cart, setCart] = useState([]);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
@@ -112,42 +104,12 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 	};
 
-	const register = async (registerEmail: string, registerPassword: string) => {
-		try {
-			const newUser = await createUserWithEmailAndPassword(
-				fireAuth,
-				registerEmail,
-				registerPassword
-			);
-			console.log(newUser.user.email);
-			setIsLoggedIn(true);
-			return newUser;
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const login = async (loginEmail: string, loginPassword: string) => {
-		try {
-			const user = await signInWithEmailAndPassword(
-				fireAuth,
-				loginEmail,
-				loginPassword
-			);
-			console.log(user.user.email);
-			setIsLoggedIn(true);
-			return user;
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const logout = async () => {
 		try {
 			await signOut(fireAuth);
 			setIsLoggedIn(false);
 		} catch (error) {
-			console.log(error);
+			alert(error);
 		}
 	};
 
@@ -191,8 +153,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setCurrentProduct,
 				productsCollectionRef,
 				cartsCollectionRef,
-				login,
-				register,
 				logout,
 				createNewCart,
 				addItemToCart,

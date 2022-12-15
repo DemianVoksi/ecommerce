@@ -1,21 +1,18 @@
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword
+} from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SiteContext, useAuth } from '../utils/ContextProvider';
+import { SiteContext } from '../utils/ContextProvider';
 import './login.css';
 
 export const Login = () => {
 	const values = React.useContext(SiteContext)!;
-	const auth = useAuth();
 	const navigate = useNavigate();
 
-	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
-		// check if user already exists
-
-		await auth?.register(values.registerEmail, values.registerPassword);
-		values.createNewCart(values.registerEmail);
-
+	const cleanInputs = () => {
+		// register
 		const registerEmailInput = document.getElementById(
 			'register-email'
 		) as HTMLInputElement;
@@ -24,15 +21,10 @@ export const Login = () => {
 			'register-password'
 		) as HTMLInputElement;
 		registerPasswordInput.value = '';
+		values.setRegisterEmail('');
+		values.setRegisterPassword('');
 
-		navigate('/');
-	};
-
-	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
-		await auth?.login(values.loginEmail, values.loginPassword);
-
+		// login
 		const loginEmailInput = document.getElementById(
 			'login-email'
 		) as HTMLInputElement;
@@ -41,8 +33,46 @@ export const Login = () => {
 			'login-password'
 		) as HTMLInputElement;
 		loginPasswordInput.value = '';
+		values.setLoginEmail('');
+		values.setLoginPassword('');
+	};
 
-		navigate('/');
+	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const newUser = await createUserWithEmailAndPassword(
+				values.fireAuth,
+				values.registerEmail,
+				values.registerPassword
+			);
+			console.log(newUser.user.email);
+			values.setIsLoggedIn(true);
+			cleanInputs();
+			navigate('/');
+			values.createNewCart(values.registerEmail);
+			return newUser;
+		} catch (error) {
+			cleanInputs();
+			alert(error);
+		}
+	};
+
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const user = await signInWithEmailAndPassword(
+				values.fireAuth,
+				values.loginEmail,
+				values.loginPassword
+			);
+			console.log(user.user.email);
+			values.setIsLoggedIn(true);
+			cleanInputs();
+			navigate('/');
+		} catch (error) {
+			alert(error);
+			cleanInputs();
+		}
 	};
 
 	const HandleReturnHome = () => {
@@ -141,7 +171,7 @@ export const Login = () => {
 							<button className='form-button'>Log in</button>
 						</div>
 					</form>
-					<div className='return-home-container'>
+					<div className='return-home-container' id='return-home'>
 						<button className='form-button' onClick={HandleReturnHome}>
 							Return to home page
 						</button>

@@ -6,16 +6,16 @@ import { collection, DocumentData, getDocs } from 'firebase/firestore';
 import { SiteContext } from '../utils/ContextProvider';
 
 export const Inventory = () => {
-	const value = React.useContext(SiteContext)!;
+	const values = React.useContext(SiteContext)!;
 
 	useEffect(() => {
-		value.fetchProducts();
+		values.fetchProducts();
 	}, []);
 
-	if (value.allProducts) {
+	if (values.allProducts) {
 		return (
 			<div className='inventory-wrapper'>
-				{value.allProducts!.map((prod: DocumentData) => (
+				{values.allProducts!.map((prod: DocumentData) => (
 					<div key={prod.id}>
 						<InventoryItem {...prod} />
 					</div>
