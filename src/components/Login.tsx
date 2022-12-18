@@ -66,6 +66,7 @@ export const Login = () => {
 				values.loginPassword
 			);
 			console.log(user.user.email);
+			console.log(user);
 			values.setIsLoggedIn(true);
 			cleanInputs();
 			navigate('/');

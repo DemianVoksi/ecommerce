@@ -1,12 +1,22 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getAuth, signOut, Auth, onAuthStateChanged } from 'firebase/auth';
+import {
+	getAuth,
+	signOut,
+	Auth,
+	onAuthStateChanged,
+	User
+} from 'firebase/auth';
 import {
 	collection,
 	CollectionReference,
 	doc,
 	DocumentData,
 	getDocs,
-	setDoc
+	getDoc,
+	query,
+	where,
+	setDoc,
+	updateDoc
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 // import { FirebaseError } from 'firebase/app';
@@ -24,12 +34,16 @@ type ValueTypes = {
 	setLoginEmail: React.Dispatch<React.SetStateAction<string>>;
 	loginPassword: string;
 	setLoginPassword: React.Dispatch<React.SetStateAction<string>>;
-	user: {};
-	setUser: React.Dispatch<React.SetStateAction<{}>>;
+	user: User | null;
+	// userEmail: string;
+	// setUserEmail: React.Dispatch<React.SetStateAction<string>>;
+	setUser: React.Dispatch<React.SetStateAction<User | null>>;
 	isLoggedIn: boolean;
 	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 	cart: never[];
 	setCart: React.Dispatch<React.SetStateAction<never[]>>;
+	cartId: string | null;
+	setCartId: React.Dispatch<React.SetStateAction<string | null>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
 	allProducts: DocumentData | null;
@@ -42,7 +56,7 @@ type ValueTypes = {
 	>;
 	logout: () => Promise<void>;
 	createNewCart: (userID: string) => void;
-	addItemToCart: () => void;
+	addItemToCart: (prod: DocumentData) => Promise<void>;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
 	removeItemFromCart: () => void;
@@ -50,20 +64,19 @@ type ValueTypes = {
 	fireAuth: Auth;
 };
 
-// export interface CurrentProduct {
-// 	name: string;
-// 	producer: string;
-// 	price: number;
-// 	processor: string;
-// 	memory: number;
-// 	storage: string;
-// 	storageNum: number;
-// 	os: string;
-// 	weight: number;
-// 	screenSize: string;
-// 	screenSizeNum: number;
-// 	id: string[];
-// }
+export interface CurrentProduct {
+	name: string;
+	producer: string;
+	price: number;
+	processor: string;
+	memory: number;
+	storage: string;
+	storageNum: number;
+	os: string;
+	weight: number;
+	screenSize: string;
+	screenSizeNum: number;
+}
 
 // define types of all value variables
 
@@ -74,7 +87,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [registerPassword, setRegisterPassword] = useState('');
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState<User | null>(null);
+	// const [userEmail, setUserEmail] = useState(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	/* 
 	isLoggedIn gets messed up when a logged in user refreshes the page. 
@@ -84,6 +98,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
 	*/
 	const [cart, setCart] = useState([]);
+	const [cartId, setCartId] = useState<string | null>(null);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
 	const [currentProduct, setCurrentProduct] = useState<DocumentData[] | null>(
@@ -114,19 +129,29 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const createNewCart = async (userID: string) => {
-		await setDoc(doc(cartsCollectionRef), {
+		const newCart = await setDoc(doc(cartsCollectionRef), {
 			owner: userID,
 			cart: []
 		});
+		return newCart;
 	};
 
-	const addItemToCart = () => {};
+	const addItemToCart = async (prod: DocumentData) => {
+		// const userCart = query(
+		// 	collection(db, 'carts'),
+		// 	where('owner', '==', user!.email)
+		// );
+		// const userCartSnapshot = await getDoc(userCart);
+		// // https://stackoverflow.com/questions/60065396/add-typings-to-firebase-collection-query
+		// // https://stackoverflow.com/questions/55692417/reading-and-copying-a-collection-of-documents-with-typescript
+		// await setDoc(userCartSnapshot, prod);
+	};
+
+	const removeItemFromCart = () => {};
 
 	const purchaseItems = () => {};
 
 	const purchaseCart = () => {};
-
-	const removeItemFromCart = () => {};
 
 	return (
 		<SiteContext.Provider
@@ -140,11 +165,15 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				loginPassword,
 				setLoginPassword,
 				user,
+				// userEmail,
+				// setUserEmail,
 				setUser,
 				isLoggedIn,
 				setIsLoggedIn,
 				cart,
 				setCart,
+				cartId,
+				setCartId,
 				toBuy,
 				setToBuy,
 				allProducts,
