@@ -5,3 +5,75 @@
 .cart-contents {}
 
 .purchase-form-container {}
+
+.purchase-form {}
+
+.purchase-form-div {}
+
+.purchase-form-label {}
+
+.purchase-form-input {}
+
+#name-div {}
+
+#name-label {}
+
+#name-input {}
+
+#address-div {}
+
+#address-label {}
+
+#address-input {}
+
+#city-div {}
+
+#city-label {}
+
+#city-input {}
+
+#zip-code-div {}
+
+#zip-code-label {}
+
+#zip-code-input {}
+
+#country-div {}
+
+#country-label {}
+
+#country-input {}
+
+#region-div {}
+
+#region-label {}
+
+#region-input {}
+
+#cardNo-div {}
+
+#cardNo-label {}
+
+#cardNo-input {}
+
+#safety-code-div {}
+
+#safety-code-label {}
+
+#safety-code-input {}
+
+#expiration-div {}
+
+#expiration-label {}
+
+#expiration-input {}
+
+#card-holder-div {}
+
+#card-holder-label {}
+
+#card-holder-input {}
+
+.button-container {}
+
+.purchase-button {}
