@@ -175,7 +175,7 @@ export const Purchase = () => {
 								<option value='Cook Islands'>Cook Islands</option>
 								<option value='Costa Rica'>Costa Rica</option>
 								<option value="Cote D'Ivoire">Cote D'Ivoire</option>
-								<option value='Croatia'>Croatia (Hrvatska)</option>
+								<option value='Croatia'>Croatia</option>
 								<option value='Cuba'>Cuba</option>
 								<option value='Cyprus'>Cyprus</option>
 								<option value='Czech Republic'>Czech Republic</option>

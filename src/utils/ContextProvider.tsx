@@ -12,14 +12,12 @@ import {
 	doc,
 	DocumentData,
 	getDocs,
-	getDoc,
 	query,
 	where,
 	setDoc,
 	updateDoc
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
-// import { FirebaseError } from 'firebase/app';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -35,15 +33,11 @@ type ValueTypes = {
 	loginPassword: string;
 	setLoginPassword: React.Dispatch<React.SetStateAction<string>>;
 	user: User | null;
-	// userEmail: string;
-	// setUserEmail: React.Dispatch<React.SetStateAction<string>>;
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
 	isLoggedIn: boolean;
 	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-	cart: never[];
-	setCart: React.Dispatch<React.SetStateAction<never[]>>;
-	cartId: string | null;
-	setCartId: React.Dispatch<React.SetStateAction<string | null>>;
+	cart: DocumentData[] | null;
+	setCart: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
 	allProducts: DocumentData | null;
@@ -88,7 +82,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 	const [user, setUser] = useState<User | null>(null);
-	// const [userEmail, setUserEmail] = useState(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	/* 
 	isLoggedIn gets messed up when a logged in user refreshes the page. 
@@ -97,8 +90,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	Session storage?
 	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
 	*/
-	const [cart, setCart] = useState([]);
-	const [cartId, setCartId] = useState<string | null>(null);
+	const [cart, setCart] = useState<DocumentData[] | null>(null);
+	// const [cartId, setCartId] = useState<DocumentData[] | null>(null);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
 	const [currentProduct, setCurrentProduct] = useState<DocumentData[] | null>(
@@ -137,14 +130,19 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const addItemToCart = async (prod: DocumentData) => {
-		// const userCart = query(
-		// 	collection(db, 'carts'),
-		// 	where('owner', '==', user!.email)
-		// );
-		// const userCartSnapshot = await getDoc(userCart);
-		// // https://stackoverflow.com/questions/60065396/add-typings-to-firebase-collection-query
-		// // https://stackoverflow.com/questions/55692417/reading-and-copying-a-collection-of-documents-with-typescript
-		// await setDoc(userCartSnapshot, prod);
+		const userCart = query(
+			cartsCollectionRef,
+			where('owner', '==', user!.email)
+		);
+		const userCartSnapshot = await getDocs(userCart);
+		setCart(
+			userCartSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+		);
+		let newArr = [...cart!];
+		newArr[0].cart = [prod];
+		setCart(newArr);
+		// use arrayunion to update array https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
+		setDoc(doc(cartsCollectionRef, cart![0].id), cart![0]);
 	};
 
 	const removeItemFromCart = () => {};
@@ -165,15 +163,11 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				loginPassword,
 				setLoginPassword,
 				user,
-				// userEmail,
-				// setUserEmail,
 				setUser,
 				isLoggedIn,
 				setIsLoggedIn,
 				cart,
 				setCart,
-				cartId,
-				setCartId,
 				toBuy,
 				setToBuy,
 				allProducts,
