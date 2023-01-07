@@ -15,7 +15,8 @@ import {
 	query,
 	where,
 	setDoc,
-	updateDoc
+	updateDoc,
+	arrayUnion
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 
@@ -53,7 +54,7 @@ type ValueTypes = {
 	addItemToCart: (prod: DocumentData) => Promise<void>;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
-	removeItemFromCart: () => void;
+	removeItemFromCart: (prod: DocumentData) => Promise<void>;
 	fetchProducts: () => Promise<void>;
 	fireAuth: Auth;
 };
@@ -70,6 +71,7 @@ export interface CurrentProduct {
 	weight: number;
 	screenSize: string;
 	screenSizeNum: number;
+	// add inventory number to items
 }
 
 // define types of all value variables
@@ -82,7 +84,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 	const [user, setUser] = useState<User | null>(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 	/* 
 	isLoggedIn gets messed up when a logged in user refreshes the page. 
 	It logs the user out, but leaves the isLoggedIn as true, and the login page
@@ -129,7 +131,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		return newCart;
 	};
 
-	const addItemToCart = async (prod: DocumentData) => {
+	const snapshotCart = async () => {
+		// queries current user cart and puts it into state
 		const userCart = query(
 			cartsCollectionRef,
 			where('owner', '==', user!.email)
@@ -138,14 +141,34 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		setCart(
 			userCartSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 		);
-		let newArr = [...cart!];
-		newArr[0].cart = [prod];
-		setCart(newArr);
-		// use arrayunion to update array https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
-		setDoc(doc(cartsCollectionRef, cart![0].id), cart![0]);
 	};
 
-	const removeItemFromCart = () => {};
+	const addItemToCart = async (prod: DocumentData) => {
+		snapshotCart();
+		// makes new array and initialises it with the current user cart
+		let newArr = [...cart!];
+		// pushes selected product into the array
+		newArr[0].cart.push(prod);
+		// sets state with the updated array
+		setCart(newArr);
+		// updates the firestore user cart with the new updated state
+		await updateDoc(doc(cartsCollectionRef, cart![0].id), {
+			cart: arrayUnion(...cart![0].cart)
+		});
+	};
+
+	const removeItemFromCart = async (prod: DocumentData) => {
+		snapshotCart();
+
+		// let newProductArr = [...cart!];
+		// console.log(newProductArr[0].cart);
+		// const index = newProductArr[0].cart
+		// 	.map((product: any) => product.id)
+		// 	.indexOf(prod.id);
+		// if (index > -1) {
+		// 	newProductArr.splice(index, 1);
+		// }
+	};
 
 	const purchaseItems = () => {};
 

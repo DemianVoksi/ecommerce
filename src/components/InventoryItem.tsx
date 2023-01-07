@@ -8,7 +8,9 @@ export const InventoryItem = ({ ...prod }) => {
 		values?.addItemToCart(prod);
 	};
 
-	const handleRemoveItem = () => {};
+	const handleRemoveItem = () => {
+		values?.removeItemFromCart(prod);
+	};
 
 	return (
 		<div className='inventory-item-wrapper'>
