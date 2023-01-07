@@ -16,7 +16,8 @@ import {
 	where,
 	setDoc,
 	updateDoc,
-	arrayUnion
+	arrayUnion,
+	arrayRemove
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 
@@ -160,14 +161,18 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const removeItemFromCart = async (prod: DocumentData) => {
 		snapshotCart();
 
-		// let newProductArr = [...cart!];
-		// console.log(newProductArr[0].cart);
-		// const index = newProductArr[0].cart
-		// 	.map((product: any) => product.id)
-		// 	.indexOf(prod.id);
-		// if (index > -1) {
-		// 	newProductArr.splice(index, 1);
-		// }
+		let newProductArr = [...cart!];
+		console.log(newProductArr[0].cart);
+		const index = newProductArr[0].cart
+			.map((product: any) => product.id)
+			.indexOf(prod.id);
+		if (index > -1) {
+			newProductArr[0].cart.splice(index, 1);
+		}
+		setCart(newProductArr);
+		await updateDoc(doc(cartsCollectionRef, cart![0].id), {
+			cart: [...cart![0].cart]
+		});
 	};
 
 	const purchaseItems = () => {};
