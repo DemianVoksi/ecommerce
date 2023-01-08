@@ -1,7 +1,21 @@
 .logged-in-out-buttons-wrapper {}
 
-.button {}
+.button {
+  background-color: var(--positive-green);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font: var(--roboto);
+  font-size: 13px;
+}
 
 #logged-in-buttons.wrapper {}
 
 #logged-out-buttons-wrapper {}
+
+#login-button {
+}
+
+#logout-button {
+  background-color: var(--negative-red);
+}

@@ -1,7 +1,18 @@
-.header-wrapper {}
+.header-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .logo-wrapper {}
 
-.logo {}
+.logo {
+  color: var(--logo-blue);
+  font-family: var(--merriweather);
+  font-weight: 700;
+  font-size: 30px;
+}
 
 .header-buttons {}

@@ -13,7 +13,7 @@ export const LoggedOutButtons = () => {
 			className='logged-in-out-buttons-wrapper'
 			id='logged-out-buttons-wrapper'
 		>
-			<button className='button' onClick={handleGoToLogin}>
+			<button className='button' id='login-button' onClick={handleGoToLogin}>
 				Log in or register
 			</button>
 		</div>

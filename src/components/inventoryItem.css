@@ -1,1 +1,30 @@
-.inventory-item-wrapper {}
+.inventory-item-wrapper {
+  margin: 5px;
+  border: 1px solid red;
+  width: 300px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#product-name {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.inventory-item-buttons-wrapper {
+  
+}
+
+.inventory-button {
+  padding: 5px 9px;
+  border: 2px solid var(--logo-blue);
+  border-radius: 5px;
+  font: var(--roboto);
+  font-size: 13px;
+  margin: 2px;
+}

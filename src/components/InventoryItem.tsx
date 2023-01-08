@@ -14,11 +14,16 @@ export const InventoryItem = ({ ...prod }) => {
 
 	return (
 		<div className='inventory-item-wrapper'>
-			<p>{prod.name}</p>
-			<p>{prod.price}</p>
-			<p>{prod.id}</p>
-			<button onClick={handleAddItem}>Add to cart</button>
-			<button onClick={handleRemoveItem}>Remove from cart</button>
+			<p id='product-name'>{prod.name}</p>
+			<p>{prod.price}</p>{' '}
+			<div className='inventory-item-buttons-wrapper'>
+				<button className='inventory-button' onClick={handleAddItem}>
+					Add to cart
+				</button>
+				<button className='inventory-button' onClick={handleRemoveItem}>
+					Remove from cart
+				</button>
+			</div>
 		</div>
 	);
 };

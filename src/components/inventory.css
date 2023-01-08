@@ -1,1 +1,17 @@
-.main-wrapper {}
+.inventory-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: space-around; */
+  margin: 20px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 844px) {
+	.inventory-wrapper {
+		width: 100;
+		flex-direction: column;
+    justify-content: center;
+		align-items: center;
+		flex-wrap: nowrap;
+	}
+}

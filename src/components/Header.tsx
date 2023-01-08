@@ -10,7 +10,7 @@ export const Header = () => {
 	return (
 		<div className='header-wrapper'>
 			<div className='logo-wrapper'>
-				<h4 className='logo'>Logo</h4>
+				<h4 className='logo'>The Computer Shop</h4>
 			</div>
 			<div className='header-buttons'>
 				{value?.isLoggedIn ? <LoggedInButtons /> : <LoggedOutButtons />}
