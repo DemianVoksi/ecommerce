@@ -19,3 +19,7 @@
 #logout-button {
   background-color: var(--negative-red);
 }
+
+#logout-button:focus {
+  
+}
