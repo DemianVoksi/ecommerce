@@ -16,8 +16,7 @@ import {
 	where,
 	setDoc,
 	updateDoc,
-	arrayUnion,
-	arrayRemove
+	arrayUnion
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 
@@ -93,7 +92,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	Session storage?
 	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
 	*/
-	const [cart, setCart] = useState<DocumentData[] | null>(null);
+	const [cart, setCart] = useState<DocumentData[] | null>(null); //<DocumentData[]>([])
 	// const [cartId, setCartId] = useState<DocumentData[] | null>(null);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
