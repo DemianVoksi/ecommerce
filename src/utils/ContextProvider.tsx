@@ -37,18 +37,16 @@ type ValueTypes = {
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
 	isLoggedIn: boolean;
 	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-	cart: DocumentData[] | null;
-	setCart: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
+	cart: DocumentData[];
+	setCart: React.Dispatch<React.SetStateAction<DocumentData[]>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
-	allProducts: DocumentData | null;
-	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[] | null>>;
+	allProducts: DocumentData[];
+	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[]>>;
 	productsCollectionRef: CollectionReference<DocumentData>;
 	cartsCollectionRef: CollectionReference<DocumentData>;
-	currentProduct: DocumentData | null;
-	setCurrentProduct: React.Dispatch<
-		React.SetStateAction<DocumentData[] | null>
-	>;
+	currentProduct: DocumentData[];
+	setCurrentProduct: React.Dispatch<React.SetStateAction<DocumentData[]>>;
 	logout: () => Promise<void>;
 	createNewCart: (userID: string) => void;
 	addItemToCart: (prod: DocumentData) => Promise<void>;
@@ -92,13 +90,10 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	Session storage?
 	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
 	*/
-	const [cart, setCart] = useState<DocumentData[] | null>(null); //<DocumentData[]>([])
-	// const [cartId, setCartId] = useState<DocumentData[] | null>(null);
+	const [cart, setCart] = useState<DocumentData[]>([]);
 	const [toBuy, setToBuy] = useState([]);
-	const [allProducts, setAllProducts] = useState<DocumentData[] | null>(null);
-	const [currentProduct, setCurrentProduct] = useState<DocumentData[] | null>(
-		null
-	);
+	const [allProducts, setAllProducts] = useState<DocumentData[]>([]);
+	const [currentProduct, setCurrentProduct] = useState<DocumentData[]>([]);
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
 	const cartsCollectionRef = collection(db, 'carts');
@@ -146,21 +141,21 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const addItemToCart = async (prod: DocumentData) => {
 		snapshotCart();
 		// makes new array and initialises it with the current user cart
-		let newArr = [...cart!];
+		let newArr = [...cart];
 		// pushes selected product into the array
 		newArr[0].cart.push(prod);
 		// sets state with the updated array
 		setCart(newArr);
 		// updates the firestore user cart with the new updated state
-		await updateDoc(doc(cartsCollectionRef, cart![0].id), {
-			cart: arrayUnion(...cart![0].cart)
+		await updateDoc(doc(cartsCollectionRef, cart[0].id), {
+			cart: arrayUnion(...cart[0].cart)
 		});
 	};
 
 	const removeItemFromCart = async (prod: DocumentData) => {
 		snapshotCart();
 
-		let newProductArr = [...cart!];
+		let newProductArr = [...cart];
 		console.log(newProductArr[0].cart);
 		const index = newProductArr[0].cart
 			.map((product: any) => product.id)
@@ -169,8 +164,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			newProductArr[0].cart.splice(index, 1);
 		}
 		setCart(newProductArr);
-		await updateDoc(doc(cartsCollectionRef, cart![0].id), {
-			cart: [...cart![0].cart]
+		await updateDoc(doc(cartsCollectionRef, cart[0].id), {
+			cart: [...cart[0].cart]
 		});
 	};
 

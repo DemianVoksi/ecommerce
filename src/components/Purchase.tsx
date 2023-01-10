@@ -5,16 +5,16 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 
 export const Purchase = () => {
-	const [name, setName] = useState<string | null>(null);
-	const [address, setAddress] = useState<string | null>(null);
-	const [city, setCity] = useState<string | null>(null);
-	const [zipCode, setZipCode] = useState<number | null>(null);
-	const [country, setCountry] = useState<string | null>(null);
-	const [region, setRegion] = useState<string | null>(null);
-	const [cardNo, setCardNo] = useState<number | null>(null);
-	const [safetyCode, setSafetyCode] = useState<number | null>(null);
+	const [name, setName] = useState<string>('');
+	const [address, setAddress] = useState<string>('');
+	const [city, setCity] = useState<string>('');
+	const [zipCode, setZipCode] = useState<number>(0);
+	const [country, setCountry] = useState<string>('');
+	const [region, setRegion] = useState<string>('');
+	const [cardNo, setCardNo] = useState<number>(0);
+	const [safetyCode, setSafetyCode] = useState<number>(0);
 	const [expiration, setExpiration] = useState<Date | null>(null);
-	const [cardHolder, setCardHolder] = useState<string | null>(null);
+	const [cardHolder, setCardHolder] = useState<string>('');
 
 	const handlePurchase = () => {};
 
@@ -40,8 +40,8 @@ export const Purchase = () => {
 								id='name-input'
 								name='name'
 								type='text'
-								required={true}
-								value={name!}
+								required
+								value={name}
 								onChange={(e) => setName(e.target.value)}
 							></input>
 						</div>
@@ -58,8 +58,8 @@ export const Purchase = () => {
 								id='address-input'
 								name='address'
 								type='text'
-								required={true}
-								value={address!}
+								required
+								value={address}
 								onChange={(e) => setAddress(e.target.value)}
 							></input>
 						</div>
@@ -76,8 +76,8 @@ export const Purchase = () => {
 								id='city-input'
 								name='city'
 								type='text'
-								required={true}
-								value={city!}
+								required
+								value={city}
 								onChange={(e) => setCity(e.target.value)}
 							></input>
 						</div>
@@ -94,8 +94,8 @@ export const Purchase = () => {
 								id='zip-code-input'
 								name='zip-code'
 								type='number'
-								required={true}
-								value={zipCode!}
+								required
+								value={zipCode}
 								onChange={(e) => setZipCode(parseInt(e.target.value))}
 							></input>
 						</div>
@@ -112,7 +112,7 @@ export const Purchase = () => {
 								className='purchase-form-input'
 								id='country-input'
 								name='country'
-								required={true}
+								required
 								onChange={(e) => setCountry(e.target.value)}
 							>
 								<option value=''>Select your country</option>
@@ -123,7 +123,6 @@ export const Purchase = () => {
 								<option value='Andorra'>Andorra</option>
 								<option value='Angola'>Angola</option>
 								<option value='Anguilla'>Anguilla</option>
-								<option value='Antartica'>Antarctica</option>
 								<option value='Antigua and Barbuda'>Antigua and Barbuda</option>
 								<option value='Argentina'>Argentina</option>
 								<option value='Armenia'>Armenia</option>
@@ -151,7 +150,7 @@ export const Purchase = () => {
 								<option value='British Indian Ocean Territory'>
 									British Indian Ocean Territory
 								</option>
-								<option value='Brunei Darussalam'>Brunei Darussalam</option>
+								<option value='Brunei'>Brunei</option>
 								<option value='Bulgaria'>Bulgaria</option>
 								<option value='Burkina Faso'>Burkina Faso</option>
 								<option value='Burundi'>Burundi</option>
@@ -171,7 +170,9 @@ export const Purchase = () => {
 								<option value='Colombia'>Colombia</option>
 								<option value='Comoros'>Comoros</option>
 								<option value='Congo'>Congo</option>
-								<option value='DR Congo'>Congo, Democratic Republic</option>
+								<option value='Congo, Democratic Republic of'>
+									Congo, Democratic Republic of
+								</option>
 								<option value='Cook Islands'>Cook Islands</option>
 								<option value='Costa Rica'>Costa Rica</option>
 								<option value="Cote D'Ivoire">Cote D'Ivoire</option>
@@ -190,6 +191,7 @@ export const Purchase = () => {
 								<option value='Equatorial Guinea'>Equatorial Guinea</option>
 								<option value='Eritrea'>Eritrea</option>
 								<option value='Estonia'>Estonia</option>
+								<option value='Eswatini'>Eswatini</option>
 								<option value='Ethiopia'>Ethiopia</option>
 								<option value='Falkland Islands'>Falkland Islands</option>
 								<option value='Faroe Islands'>Faroe Islands</option>
@@ -220,7 +222,6 @@ export const Purchase = () => {
 								<option value='Heard and McDonald Islands'>
 									Heard and McDonald Islands
 								</option>
-								<option value='Holy See'>Holy See</option>
 								<option value='Honduras'>Honduras</option>
 								<option value='Hong Kong'>Hong Kong</option>
 								<option value='Hungary'>Hungary</option>
@@ -238,11 +239,11 @@ export const Purchase = () => {
 								<option value='Kazakhstan'>Kazakhstan</option>
 								<option value='Kenya'>Kenya</option>
 								<option value='Kiribati'>Kiribati</option>
-								<option value='Kosovo'>Kosovo</option>
 								<option value="Democratic People's Republic of Korea">
 									Korea, Democratic People's Republic of
 								</option>
 								<option value='Korea'>Korea, Republic of</option>
+								<option value='Kosovo'>Kosovo</option>
 								<option value='Kuwait'>Kuwait</option>
 								<option value='Kyrgyzstan'>Kyrgyzstan</option>
 								<option value='Laos'>Laos</option>
@@ -255,7 +256,7 @@ export const Purchase = () => {
 								<option value='Lithuania'>Lithuania</option>
 								<option value='Luxembourg'>Luxembourg</option>
 								<option value='Macau'>Macau</option>
-								<option value='Northern Macedonia'>Northern Macedonia</option>
+
 								<option value='Madagascar'>Madagascar</option>
 								<option value='Malawi'>Malawi</option>
 								<option value='Malaysia'>Malaysia</option>
@@ -274,6 +275,7 @@ export const Purchase = () => {
 								<option value='Moldova'>Moldova</option>
 								<option value='Monaco'>Monaco</option>
 								<option value='Mongolia'>Mongolia</option>
+								<option value='Montenegro'>Montenegro</option>
 								<option value='Montserrat'>Montserrat</option>
 								<option value='Morocco'>Morocco</option>
 								<option value='Mozambique'>Mozambique</option>
@@ -292,6 +294,7 @@ export const Purchase = () => {
 								<option value='Nigeria'>Nigeria</option>
 								<option value='Niue'>Niue</option>
 								<option value='Norfolk Island'>Norfolk Island</option>
+								<option value='North Macedonia'>North Macedonia</option>
 								<option value='Northern Mariana Islands'>
 									Northern Mariana Islands
 								</option>
@@ -328,10 +331,11 @@ export const Purchase = () => {
 								</option>
 								<option value='Saudi Arabia'>Saudi Arabia</option>
 								<option value='Senegal'>Senegal</option>
+								<option value='Serbia'>Serbia</option>
 								<option value='Seychelles'>Seychelles</option>
-								<option value='Sierra'>Sierra Leone</option>
+								<option value='Sierra Leone'>Sierra Leone</option>
 								<option value='Singapore'>Singapore</option>
-								<option value='Slovakia'>Slovakia (Slovak Republic)</option>
+								<option value='Slovakia'>Slovakia</option>
 								<option value='Slovenia'>Slovenia</option>
 								<option value='Solomon Islands'>Solomon Islands</option>
 								<option value='Somalia'>Somalia</option>
@@ -349,7 +353,6 @@ export const Purchase = () => {
 								<option value='Sudan'>Sudan</option>
 								<option value='Suriname'>Suriname</option>
 								<option value='Svalbard'>Svalbard and Jan Mayen Islands</option>
-								<option value='Swaziland'>Swaziland</option>
 								<option value='Sweden'>Sweden</option>
 								<option value='Switzerland'>Switzerland</option>
 								<option value='Syria'>Syria</option>
@@ -378,6 +381,7 @@ export const Purchase = () => {
 								<option value='Uruguay'>Uruguay</option>
 								<option value='Uzbekistan'>Uzbekistan</option>
 								<option value='Vanuatu'>Vanuatu</option>
+								<option value='Vatican City'>Vatican City</option>
 								<option value='Venezuela'>Venezuela</option>
 								<option value='Vietnam'>Viet Nam</option>
 								<option value='Virgin Islands, British'>
@@ -389,7 +393,6 @@ export const Purchase = () => {
 								</option>
 								<option value='Western Sahara'>Western Sahara</option>
 								<option value='Yemen'>Yemen</option>
-								<option value='Serbia'>Serbia</option>
 								<option value='Zambia'>Zambia</option>
 								<option value='Zimbabwe'>Zimbabwe</option>
 							</select>
@@ -427,8 +430,8 @@ export const Purchase = () => {
 								type='number'
 								minLength={13}
 								maxLength={16}
-								required={true}
-								value={cardNo!}
+								required
+								value={cardNo}
 								onChange={(e) => setCardNo(parseInt(e.target.value))}
 							></input>
 						</div>
@@ -447,8 +450,8 @@ export const Purchase = () => {
 								type='number'
 								minLength={3}
 								maxLength={4}
-								required={true}
-								value={safetyCode!}
+								required
+								value={safetyCode}
 								onChange={(e) => setSafetyCode(parseInt(e.target.value))}
 							></input>
 						</div>
@@ -466,7 +469,7 @@ export const Purchase = () => {
 								id='expiration-input'
 								name='expiration'
 								type='date'
-								required={true}
+								required
 							></input>
 						</div>
 						<div className='purchase-form-div' id='card-holder-div'>
@@ -482,8 +485,8 @@ export const Purchase = () => {
 								id='card-holder-input'
 								name='card-holder'
 								type='text'
-								required={true}
-								value={cardHolder!}
+								required
+								value={cardHolder}
 								onChange={(e) => setCardHolder(e.target.value)}
 							></input>
 						</div>
