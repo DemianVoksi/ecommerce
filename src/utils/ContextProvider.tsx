@@ -69,7 +69,6 @@ export interface CurrentProduct {
 	weight: number;
 	screenSize: string;
 	screenSizeNum: number;
-	// add inventory number to items
 }
 
 // define types of all value variables
@@ -90,13 +89,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	Session storage?
 	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
 	*/
-	const [cart, setCart] = useState<DocumentData[]>([]); //<DocumentData[]>([])
-	// Suggestion
-	// Only one cart is in play so the type should be
-	// DocumentData
-	// also note that cart is singular!
-	// prefer undefined
-	// const [cartId, setCartId] = useState<DocumentData[] | null>(null);
+	const [cart, setCart] = useState<DocumentData[]>([]);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[]>([]);
 	const [currentProduct, setCurrentProduct] = useState<DocumentData[]>([]);
@@ -146,7 +139,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		setCart(userCart);
 		return userCart;
 	};
-	// const [cart, setCart] = useState();
 
 	const addItemToCart = async (prod: DocumentData) => {
 		const userCart = await snapshotCart();
