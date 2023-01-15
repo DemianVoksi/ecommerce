@@ -23,7 +23,12 @@ export const InventoryItem = ({ ...prod }) => {
 					alt="product"
 					className="image"
 				></img>
-				<p>{`Price: ${prod.price} kr`}</p>{' '}
+				<div className="product-info-div">
+					<p className="product-info-p">{`Memory: ${prod.memory}GB RAM `}</p>{' '}
+					<p className="product-info-p">{`Storage: ${prod.storage}`}</p>{' '}
+					<p className="product-info-p">{`Processor: ${prod.processor}`}</p>{' '}
+					<p className="product-info-p">{`Price: ${prod.price} kr`}</p>{' '}
+				</div>
 			</div>
 			<div className="inventory-item-buttons-wrapper">
 				<button className="inventory-button" onClick={handleAddItem}>
