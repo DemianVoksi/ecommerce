@@ -69,6 +69,7 @@ export interface CurrentProduct {
 	weight: number;
 	screenSize: string;
 	screenSizeNum: number;
+	id: string;
 }
 
 // define types of all value variables
@@ -99,7 +100,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 	useEffect(() => {
 		onAuthStateChanged(fireAuth, (user) => {
-			setUser(user!);
+			setUser(user);
+			setIsLoggedIn(true);
 		});
 	}, []);
 

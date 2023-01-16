@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import './inventoryItem.css';
 
@@ -5,6 +6,11 @@ export const InventoryItem = ({ ...prod }) => {
 	// const values = React.useContext(SiteContext);
 	const values = useAuth();
 	const imageName = prod.name;
+	const product = { ...prod };
+
+	const printProduct = () => {
+		console.log(product);
+	};
 
 	const handleAddItem = () => {
 		values.addItemToCart(prod);
@@ -14,9 +20,13 @@ export const InventoryItem = ({ ...prod }) => {
 		values.removeItemFromCart(prod);
 	};
 
+	const handleGoToProduct = () => {
+		<Navigate to="/product" state={product} />;
+	};
+
 	return (
 		<div className="inventory-item-wrapper">
-			<div className="product-info">
+			<div className="product-info" onClick={handleGoToProduct}>
 				<p id="product-name">{prod.name}</p>
 				<img
 					src={require(`../pics/${imageName}.png`)}
@@ -37,6 +47,7 @@ export const InventoryItem = ({ ...prod }) => {
 				<button className="inventory-button" onClick={handleRemoveItem}>
 					Remove from cart
 				</button>
+				<button onClick={printProduct}>Print</button>
 			</div>
 		</div>
 	);

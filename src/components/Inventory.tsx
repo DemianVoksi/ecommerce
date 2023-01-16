@@ -14,7 +14,7 @@ export const Inventory = () => {
 
 	if (values.allProducts) {
 		return (
-			<div className='inventory-wrapper'>
+			<div className="inventory-wrapper">
 				{values.allProducts.map((prod: DocumentData) => (
 					<div key={prod.id}>
 						<InventoryItem {...prod} />

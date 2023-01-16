@@ -4,6 +4,7 @@ import './App.css';
 import { Cart } from './components/Cart';
 import { Login } from './components/Login';
 import { Main } from './components/Main';
+import { Product } from './components/Product';
 import { Purchase } from './components/Purchase';
 import { UserProfile } from './components/UserProfile';
 import { ContextProvider } from './utils/ContextProvider';
@@ -12,13 +13,13 @@ import { ProtectedRoute } from './utils/ProtectedRoute';
 
 function App() {
 	return (
-		<div className='App'>
+		<div className="App">
 			<ContextProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route path='/' element={<Main />} />
+						<Route path="/" element={<Main />} />
 						<Route
-							path='/user-profile'
+							path="/user-profile"
 							element={
 								<ProtectedRoute>
 									<UserProfile />
@@ -27,15 +28,34 @@ function App() {
 						/>
 
 						<Route
-							path='/login'
+							path="/login"
 							element={
 								<ProtectedLogin>
 									<Login />
 								</ProtectedLogin>
 							}
 						/>
-						<Route path='/cart' element={<Cart />} />
-						<Route path='/purchase' element={<Purchase />} />
+						<Route path="/cart" element={<Cart />} />
+						<Route path="/purchase" element={<Purchase />} />
+						<Route
+							path="/product"
+							element={
+								<Product
+								// name="string"
+								// producer="string"
+								// price={Number}
+								// processor="string"
+								// memory={number}
+								// storage="string"
+								// storageNum={number}
+								// os="string"
+								// weight={number}
+								// screenSize="string"
+								// screenSizeNum={number}
+								// id="string"
+								/>
+							}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</ContextProvider>

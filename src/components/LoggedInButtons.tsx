@@ -16,13 +16,17 @@ export const LoggedInButtons = () => {
 
 	return (
 		<div
-			className='logged-in-out-buttons-wrapper'
-			id='logged-in-buttons-wrapper'
+			className="logged-in-out-buttons-wrapper"
+			id="logged-in-buttons-wrapper"
 		>
-			<button className='button' id='logout-button' onClick={handleLogout}>
+			<button
+				className="button"
+				id="logout-button"
+				onClick={handleLogout}
+			>
 				Log out
 			</button>
-			<button className='button' onClick={handleViewCart}>
+			<button className="button" onClick={handleViewCart}>
 				View cart
 			</button>
 		</div>
