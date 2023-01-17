@@ -41,18 +41,19 @@ function App() {
 							path="/product"
 							element={
 								<Product
-								// name="string"
-								// producer="string"
-								// price={Number}
-								// processor="string"
-								// memory={number}
-								// storage="string"
-								// storageNum={number}
-								// os="string"
-								// weight={number}
-								// screenSize="string"
-								// screenSizeNum={number}
-								// id="string"
+								// spoof values
+								// name="name"
+								// producer="producer"
+								// price={10}
+								// processor="processor"
+								// memory={10}
+								// storage="storage"
+								// storageNum={10}
+								// os="os"
+								// weight={10}
+								// screenSize="screenSize"
+								// screenSizeNum={10}
+								// id="id"
 								/>
 							}
 						/>
