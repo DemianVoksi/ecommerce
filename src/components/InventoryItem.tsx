@@ -1,9 +1,8 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import './inventoryItem.css';
 
 export const InventoryItem = ({ ...prod }) => {
-	// const values = React.useContext(SiteContext);
 	const values = useAuth();
 	const imageName = prod.name;
 	const product = { ...prod };
