@@ -1,12 +1,16 @@
 import React from 'react';
 import { Header } from './Header';
-import { CurrentProduct } from '../utils/ContextProvider';
+import { useParams } from 'react-router-dom';
 
-export const Product = (props: CurrentProduct) => {
+export const Product = () => {
+	let productID = useParams();
+
+	const handleParams = () => {
+		console.log(productID.id);
+	};
 	return (
 		<div>
-			<p>{props.name}</p>
-			<p>{props.price}</p>
+			<button onClick={handleParams}>Print ID</button>
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import './inventoryItem.css';
 
@@ -7,6 +7,7 @@ export const InventoryItem = ({ ...prod }) => {
 	const values = useAuth();
 	const imageName = prod.name;
 	const product = { ...prod };
+	const navigate = useNavigate();
 
 	const printProduct = () => {
 		console.log(product);
@@ -21,7 +22,7 @@ export const InventoryItem = ({ ...prod }) => {
 	};
 
 	const handleGoToProduct = () => {
-		<Navigate to="/product" state={product} />;
+		navigate(`product/${prod.id}`);
 	};
 
 	return (
