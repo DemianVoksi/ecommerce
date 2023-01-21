@@ -26,10 +26,52 @@ export const Product = () => {
 		setProduct(productProper);
 	};
 
+	const handlePurchase = () => {};
+
+	const handleAddToCart = () => {};
+
 	return (
-		<div>
-			<p>{product[0]?.name}</p>
-			<p>{product[0]?.price}</p>
+		<div className="product-container">
+			<div className="image-container">
+				<div>{/* image */}</div>
+				<p className="product-price">Price: {product[0]?.price} SEK</p>
+			</div>
+			<div className="info-container">
+				<div className="title-container">
+					<p className="product-title">{product[0]?.name}</p>
+				</div>
+				<div className="product-details-container">
+					<p className="product-details">
+						Memory: {product[0]?.memory} GB
+					</p>
+					<p className="product-details">
+						Storage: {product[0]?.storage}
+					</p>
+					<p className="product-details">
+						Processor: {product[0]?.processor}
+					</p>
+					<p className="product-details">
+						Screen: {product[0]?.screenSize}
+					</p>
+					<p className="product-details">
+						Operating system: {product[0]?.os}
+					</p>
+					<p className="product-details">
+						Weight: {product[0]?.weight} kg
+					</p>
+				</div>
+				<div className="product-buttons-container">
+					<button className="product-button" onClick={handlePurchase}>
+						Purchase
+					</button>
+					<button
+						className="product-button"
+						onClick={handleAddToCart}
+					>
+						Add to cart
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };
