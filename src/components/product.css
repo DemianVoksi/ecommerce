@@ -1,16 +1,41 @@
-.product-container {}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+.product-container {
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10vh 0;
+  font-family: 'Roboto', 'sans-serif';
+}
 
 .image-container {}
 
-.info-container {}
+.product-image {
+  height: 300px;
+  width: 300px;
+}
+
+.info-container {
+  padding: 0 5vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .title-container {}
 
-.product.title {}
+.product-title {
+  font-size: 25px;
+  font-weight: 300;
+}
 
 .product-details-container {}
 
-.product-details {}
+.product-details {
+  margin: 1vh;
+}
 
 .product-buttons-container {}
 

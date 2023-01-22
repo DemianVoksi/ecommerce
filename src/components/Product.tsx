@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 // import { Header } from './Header';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import { DocumentData, getDocs, query, where } from 'firebase/firestore';
+import './product.css';
 
 export const Product = () => {
 	const values = useAuth();
 	let productID = useParams();
+	let productName = `${productID.id}.png`;
 	const [product, setProduct] = useState<DocumentData[]>([])!;
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		snapshotProduct();
@@ -30,10 +33,18 @@ export const Product = () => {
 
 	const handleAddToCart = () => {};
 
+	const handleGoBack = () => {
+		navigate('/');
+	};
+
 	return (
 		<div className="product-container">
 			<div className="image-container">
-				<div>{/* image */}</div>
+				<img
+					src={require(`../pics/${productName}`)}
+					alt="product"
+					className="product-image"
+				></img>
 				<p className="product-price">Price: {product[0]?.price} SEK</p>
 			</div>
 			<div className="info-container">
@@ -70,6 +81,7 @@ export const Product = () => {
 					>
 						Add to cart
 					</button>
+					<button onClick={handleGoBack}>go back</button>
 				</div>
 			</div>
 		</div>
