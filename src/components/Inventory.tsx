@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './inventory.css';
 import { InventoryItem } from './InventoryItem';
 import { db } from '../utils/firebaseConfig';
@@ -7,10 +7,22 @@ import { SiteContext } from '../utils/ContextProvider';
 
 export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;
+	const [userCart, setUsercart] = useState<DocumentData[]>([]);
 
 	useEffect(() => {
 		values.fetchProducts();
+		fetchActiveCart();
 	}, []);
+
+	const fetchActiveCart = async () => {
+		const fetchedCart = await values.snapshotCart();
+		const cart = fetchedCart;
+		setUsercart(cart);
+	};
+
+	const printCart = () => {
+		console.log(userCart);
+	};
 
 	if (values.allProducts) {
 		return (
@@ -20,6 +32,7 @@ export const Inventory = () => {
 						<InventoryItem {...prod} />
 					</div>
 				))}
+				<button onClick={printCart}>print cart</button>
 			</div>
 		);
 	} else return <p>Loading...</p>;

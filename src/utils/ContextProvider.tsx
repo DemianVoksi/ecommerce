@@ -4,7 +4,10 @@ import {
 	signOut,
 	Auth,
 	onAuthStateChanged,
-	User
+	User,
+	setPersistence,
+	browserSessionPersistence,
+	signInWithEmailAndPassword
 } from 'firebase/auth';
 import {
 	collection,
@@ -49,6 +52,7 @@ type ValueTypes = {
 	setCurrentProduct: React.Dispatch<React.SetStateAction<DocumentData[]>>;
 	logout: () => Promise<void>;
 	createNewCart: (userID: string) => void;
+	snapshotCart: () => Promise<DocumentData[]>;
 	addItemToCart: (prod: DocumentData) => Promise<void>;
 	purchaseItems: () => void;
 	purchaseCart: () => void;
@@ -104,6 +108,25 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			setIsLoggedIn(true);
 		});
 	}, []);
+
+	// setPersistence(fireAuth, browserSessionPersistence)
+	// 	.then(() => {
+	// 		// Existing and future Auth states are now persisted in the current
+	// 		// session only. Closing the window would clear any existing state even
+	// 		// if a user forgets to sign out.
+	// 		// ...
+	// 		// New sign-in will be persisted with session persistence.
+	// 		return signInWithEmailAndPassword(
+	// 			fireAuth,
+	// 			loginEmail,
+	// 			loginPassword
+	// 		);
+	// 	})
+	// 	.catch((error) => {
+	// 		// Handle Errors here.
+	// 		const errorCode = error.code;
+	// 		const errorMessage = error.message;
+	// 	});
 
 	const fetchProducts = async () => {
 		const data = await getDocs(productsCollectionRef);
@@ -205,6 +228,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				cartsCollectionRef,
 				logout,
 				createNewCart,
+				snapshotCart,
 				addItemToCart,
 				purchaseItems,
 				purchaseCart,
