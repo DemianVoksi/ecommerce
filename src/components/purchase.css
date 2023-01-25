@@ -1,18 +1,56 @@
-.purchase {}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 
-.purchase-content {}
 
-.cart-contents {}
+.purchase {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
 
-.purchase-form-container {}
+.purchase-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-contents {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.purchase-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
 
 .purchase-form {}
 
-.purchase-form-div {}
+.purchase-form-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+}
 
-.purchase-form-label {}
+.purchase-form-label {
+  margin-right: 20px;
+  font-family: var(--roboto);
+}
 
-.purchase-form-input {}
+.purchase-form-input {
+  width: 200px;
+  font-family: var(--roboto);  
+}
 
 #name-div {}
 
@@ -74,6 +112,11 @@
 
 #card-holder-input {}
 
-.button-container {}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+}
 
 .purchase-button {}
