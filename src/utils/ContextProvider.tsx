@@ -101,6 +101,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
 	const cartsCollectionRef = collection(db, 'carts');
+	// const firebaseUser = fireAuth.currentUser;
 
 	useEffect(() => {
 		onAuthStateChanged(fireAuth, (user) => {

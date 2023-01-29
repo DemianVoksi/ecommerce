@@ -1,12 +1,13 @@
 import { DocumentData } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../utils/ContextProvider';
+import { SiteContext, useAuth } from '../utils/ContextProvider';
 
 export const CartInPurchase = () => {
-	const values = useAuth();
+	const values = React.useContext(SiteContext)!;
 	const [userCart, setUsercart] = useState<DocumentData[]>([]);
 
 	useEffect(() => {
+		// values.snapshotCart();
 		fetchActiveCart();
 	}, []);
 
@@ -27,7 +28,7 @@ export const CartInPurchase = () => {
 	return (
 		<div className="cart-in-purchase-container">
 			<div>
-				{userCart[0].cart.map((item: any) => (
+				{userCart[0]?.cart.map((item: any) => (
 					<div>
 						{' '}
 						<p>

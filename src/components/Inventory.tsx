@@ -5,11 +5,14 @@ import { db } from '../utils/firebaseConfig';
 import { collection, DocumentData, getDocs } from 'firebase/firestore';
 import { SiteContext } from '../utils/ContextProvider';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;
 	const [userCart, setUsercart] = useState<DocumentData[]>([]);
 	const navigate = useNavigate();
+	const fireAuth = getAuth();
+	const firebaseUser = fireAuth.currentUser;
 
 	useEffect(() => {
 		values.fetchProducts();
@@ -30,6 +33,11 @@ export const Inventory = () => {
 		navigate('/purchase');
 	};
 
+	const printUser = () => {
+		// console.log(values.user);
+		console.log(firebaseUser!.email);
+	};
+
 	if (values.allProducts) {
 		return (
 			<div className="inventory-wrapper">
@@ -39,7 +47,8 @@ export const Inventory = () => {
 					</div>
 				))}
 				<button onClick={printCart}>print cart</button>
-				<button onClick={goToPurchase}>go to cart</button>
+				<button onClick={goToPurchase}>go to purchase</button>
+				<button onClick={printUser}>print user</button>
 			</div>
 		);
 	} else return <p>Loading...</p>;
