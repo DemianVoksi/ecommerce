@@ -20,9 +20,24 @@ export const CartInPurchase = () => {
 		console.log(userCart);
 	};
 
+	const printUser = () => {
+		console.log(values.user);
+	};
+
 	return (
 		<div className="cart-in-purchase-container">
+			<div>
+				{userCart[0].cart.map((item: any) => (
+					<div>
+						{' '}
+						<p>
+							{item.name}: {item.price} SEK
+						</p>
+					</div>
+				))}
+			</div>
 			<button onClick={printCart}>print cart</button>
+			<button onClick={printUser}>print user</button>
 		</div>
 	);
 };

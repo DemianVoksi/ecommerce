@@ -4,10 +4,12 @@ import { InventoryItem } from './InventoryItem';
 import { db } from '../utils/firebaseConfig';
 import { collection, DocumentData, getDocs } from 'firebase/firestore';
 import { SiteContext } from '../utils/ContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;
 	const [userCart, setUsercart] = useState<DocumentData[]>([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		values.fetchProducts();
@@ -24,6 +26,10 @@ export const Inventory = () => {
 		console.log(userCart);
 	};
 
+	const goToPurchase = () => {
+		navigate('/purchase');
+	};
+
 	if (values.allProducts) {
 		return (
 			<div className="inventory-wrapper">
@@ -33,6 +39,7 @@ export const Inventory = () => {
 					</div>
 				))}
 				<button onClick={printCart}>print cart</button>
+				<button onClick={goToPurchase}>go to cart</button>
 			</div>
 		);
 	} else return <p>Loading...</p>;

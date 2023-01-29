@@ -106,6 +106,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		onAuthStateChanged(fireAuth, (user) => {
 			setUser(user);
 			setIsLoggedIn(true);
+			// snapshotCart();
 		});
 	}, []);
 

@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { Cart } from './components/Cart';
-import { Login } from './components/Login';
-import { Main } from './components/Main';
-import { Product } from './components/Product';
-import { Purchase } from './components/Purchase';
-import { UserProfile } from './components/UserProfile';
+import { CartPage } from './components/CartPage';
+import { LoginPage } from './components/LoginPage';
+import { MainPage } from './components/MainPage';
+import { ProductPage } from './components/ProductPage';
+import { PurchasePage } from './components/PurchasePage';
+import { UserProfilePage } from './components/UserProfilePage';
 import { ContextProvider, useAuth } from './utils/ContextProvider';
 import { ProtectedLogin } from './utils/ProtectedLogin';
 import { ProtectedRoute } from './utils/ProtectedRoute';
+
+// add images into firebase storage
 
 function App() {
 	return (
@@ -17,12 +19,12 @@ function App() {
 			<ContextProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/" element={<Main />} />
+						<Route path="/" element={<MainPage />} />
 						<Route
 							path="/user-profile"
 							element={
 								<ProtectedRoute>
-									<UserProfile />
+									<UserProfilePage />
 								</ProtectedRoute>
 							}
 						/>
@@ -31,13 +33,13 @@ function App() {
 							path="/login"
 							element={
 								<ProtectedLogin>
-									<Login />
+									<LoginPage />
 								</ProtectedLogin>
 							}
 						/>
-						<Route path="/cart" element={<Cart />} />
-						<Route path="/purchase" element={<Purchase />} />
-						<Route path="/product/:id" element={<Product />} />
+						<Route path="/cart" element={<CartPage />} />
+						<Route path="/purchase" element={<PurchasePage />} />
+						<Route path="/product/:id" element={<ProductPage />} />
 					</Routes>
 				</BrowserRouter>
 			</ContextProvider>

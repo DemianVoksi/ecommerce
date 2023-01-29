@@ -4,7 +4,7 @@ import { CartInPurchase } from './CartInPurchase';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
-export const Purchase = () => {
+export const PurchasePage = () => {
 	const [name, setName] = useState<string>('');
 	const [address, setAddress] = useState<string>('');
 	const [city, setCity] = useState<string>('');

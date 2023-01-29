@@ -2,11 +2,11 @@ import React from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
-export const Cart = () => {
+export const CartPage = () => {
 	return (
 		<div>
 			<Header />
-			<div className='cart-contents-container'>
+			<div className="cart-contents-container">
 				{/* 
 				(cart empty) ? <p>Your cart is empty</p> : 
 				<div className='cart-contents'>

@@ -1,13 +1,14 @@
 import React from 'react';
+import './main.css';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { Inventory } from './Inventory';
 
-export const UserProfile = () => {
+export const MainPage = () => {
 	return (
-		<div className='user-profile'>
+		<div className="main-wrapper">
 			<Header />
-			{/* content */}
-			<p>User profile page</p>
+			<Inventory />
 			<Footer />
 		</div>
 	);

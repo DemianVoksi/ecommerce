@@ -5,7 +5,7 @@ import { useAuth } from '../utils/ContextProvider';
 import { DocumentData, getDocs, query, where } from 'firebase/firestore';
 import './product.css';
 
-export const Product = () => {
+export const ProductPage = () => {
 	const values = useAuth();
 	let productID = useParams();
 	let productName = `${productID.id}.png`;
