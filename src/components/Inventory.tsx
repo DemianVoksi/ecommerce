@@ -11,12 +11,10 @@ export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;
 	const [userCart, setUsercart] = useState<DocumentData[]>([]);
 	const navigate = useNavigate();
-	const fireAuth = getAuth();
-	const firebaseUser = fireAuth.currentUser;
 
 	useEffect(() => {
 		values.fetchProducts();
-		fetchActiveCart();
+		// fetchActiveCart();
 	}, []);
 
 	const fetchActiveCart = async () => {
@@ -31,11 +29,12 @@ export const Inventory = () => {
 
 	const goToPurchase = () => {
 		navigate('/purchase');
+		values.snapshotCart();
 	};
 
 	const printUser = () => {
-		// console.log(values.user);
-		console.log(firebaseUser!.email);
+		let user = values.fetchCurrentUserEmail();
+		console.log(user);
 	};
 
 	if (values.allProducts) {

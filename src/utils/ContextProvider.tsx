@@ -21,7 +21,7 @@ import {
 	updateDoc,
 	arrayUnion
 } from 'firebase/firestore';
-import { db } from './firebaseConfig';
+import { app, db } from './firebaseConfig';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -58,6 +58,7 @@ type ValueTypes = {
 	purchaseCart: () => void;
 	removeItemFromCart: (prod: DocumentData) => Promise<void>;
 	fetchProducts: () => Promise<void>;
+	fetchCurrentUserEmail: () => Promise<string | null | undefined>;
 	fireAuth: Auth;
 };
 
@@ -86,14 +87,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 	const [user, setUser] = useState<User | null>(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
-	/* 
-	isLoggedIn gets messed up when a logged in user refreshes the page. 
-	It logs the user out, but leaves the isLoggedIn as true, and the login page
-	can't be accessed.
-	Session storage?
-	https://stackoverflow.com/questions/39097440/on-react-router-how-to-stay-logged-in-state-even-page-refresh
-	*/
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [cart, setCart] = useState<DocumentData[]>([]);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[]>([]);
@@ -105,9 +99,11 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 	useEffect(() => {
 		onAuthStateChanged(fireAuth, (user) => {
-			setUser(user);
-			setIsLoggedIn(true);
-			// snapshotCart();
+			if (!!user) {
+				setUser(user);
+				setIsLoggedIn(true);
+				snapshotCart();
+			}
 		});
 	}, []);
 
@@ -152,11 +148,17 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		return newCart;
 	};
 
+	const fetchCurrentUserEmail = async () => {
+		let currentUserEmail = fireAuth.currentUser?.email;
+		return currentUserEmail;
+	};
+
 	const snapshotCart = async (): Promise<DocumentData[]> => {
 		// queries current user cart and puts it into state
+		const curUserEmail = await fetchCurrentUserEmail();
 		const userCartQuery = query(
 			cartsCollectionRef,
-			where('owner', '==', user!.email)
+			where('owner', '==', curUserEmail)
 		);
 		const userCartSnapshot = await getDocs(userCartQuery);
 		const userCart: DocumentData[] = userCartSnapshot.docs.map((doc) => ({
@@ -236,6 +238,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				purchaseCart,
 				removeItemFromCart,
 				fetchProducts,
+				fetchCurrentUserEmail,
 				fireAuth
 			}}
 		>

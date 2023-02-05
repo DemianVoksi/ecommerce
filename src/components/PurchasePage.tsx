@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './purchase.css';
 import { CartInPurchase } from './CartInPurchase';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { SiteContext } from '../utils/ContextProvider';
 
 export const PurchasePage = () => {
 	const [name, setName] = useState<string>('');
@@ -15,7 +16,7 @@ export const PurchasePage = () => {
 	const [safetyCode, setSafetyCode] = useState<number>(0);
 	const [expiration, setExpiration] = useState<Date | null>(null);
 	const [cardHolder, setCardHolder] = useState<string>('');
-
+	const values = useContext(SiteContext)!;
 	const handlePurchase = () => {};
 
 	return (
@@ -23,7 +24,21 @@ export const PurchasePage = () => {
 			<Header />
 			<div className="purchase-content">
 				<div className="cart-contents">
-					<CartInPurchase />
+					{/* <CartInPurchase /> */}
+					<div className="cart-in-purchase-container">
+						<div>
+							{values.cart[0]?.cart.map(
+								(item: any, index: number) => (
+									<div key={index}>
+										{' '}
+										<p>
+											{item.name}: {item.price} SEK
+										</p>
+									</div>
+								)
+							)}
+						</div>
+					</div>
 				</div>
 				<div className="purchase-form-container">
 					<form className="purchase-form" onSubmit={handlePurchase}>

@@ -14,6 +14,7 @@ export const CartInPurchase = () => {
 	const fetchActiveCart = async () => {
 		const fetchedCart = await values.snapshotCart();
 		const cart = fetchedCart;
+		console.log(`cart in purchase: ${cart}`);
 		setUsercart(cart);
 	};
 
@@ -39,6 +40,7 @@ export const CartInPurchase = () => {
 			</div>
 			<button onClick={printCart}>print cart</button>
 			<button onClick={printUser}>print user</button>
+			<button onClick={fetchActiveCart}>fetch active cart</button>
 		</div>
 	);
 };
