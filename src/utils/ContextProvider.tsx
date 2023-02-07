@@ -4,10 +4,7 @@ import {
 	signOut,
 	Auth,
 	onAuthStateChanged,
-	User,
-	setPersistence,
-	browserSessionPersistence,
-	signInWithEmailAndPassword
+	User
 } from 'firebase/auth';
 import {
 	collection,
@@ -21,7 +18,8 @@ import {
 	updateDoc,
 	arrayUnion
 } from 'firebase/firestore';
-import { app, db } from './firebaseConfig';
+import { app, db, storage } from './firebaseConfig';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -75,6 +73,7 @@ export interface CurrentProduct {
 	screenSize: string;
 	screenSizeNum: number;
 	id: string;
+	picUrl: string;
 }
 
 // define types of all value variables
@@ -106,25 +105,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			}
 		});
 	}, []);
-
-	// setPersistence(fireAuth, browserSessionPersistence)
-	// 	.then(() => {
-	// 		// Existing and future Auth states are now persisted in the current
-	// 		// session only. Closing the window would clear any existing state even
-	// 		// if a user forgets to sign out.
-	// 		// ...
-	// 		// New sign-in will be persisted with session persistence.
-	// 		return signInWithEmailAndPassword(
-	// 			fireAuth,
-	// 			loginEmail,
-	// 			loginPassword
-	// 		);
-	// 	})
-	// 	.catch((error) => {
-	// 		// Handle Errors here.
-	// 		const errorCode = error.code;
-	// 		const errorMessage = error.message;
-	// 	});
 
 	const fetchProducts = async () => {
 		const data = await getDocs(productsCollectionRef);
