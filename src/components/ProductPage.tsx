@@ -14,6 +14,7 @@ export const ProductPage = () => {
 
 	useEffect(() => {
 		snapshotProduct();
+		values.putPicInImg(productName, 'product-image');
 	}, []);
 
 	const snapshotProduct = async () => {
@@ -27,6 +28,7 @@ export const ProductPage = () => {
 			id: doc.id
 		}));
 		setProduct(productProper);
+		return product;
 	};
 
 	const handlePurchase = () => {};
@@ -41,9 +43,10 @@ export const ProductPage = () => {
 		<div className="product-container">
 			<div className="image-container">
 				<img
-					src={require(`../pics/${productName}`)}
+					// src={require(`../pics/${productName}`)}
 					alt="product"
 					className="product-image"
+					id="product-image"
 				></img>
 				<p className="product-price">Price: {product[0]?.price} SEK</p>
 			</div>

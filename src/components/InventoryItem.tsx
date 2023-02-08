@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import './inventoryItem.css';
@@ -7,6 +8,11 @@ export const InventoryItem = ({ ...prod }) => {
 	const imageName = prod.name;
 	const product = { ...prod };
 	const navigate = useNavigate();
+	const htmlID = prod.picUrl;
+
+	useEffect(() => {
+		values.putPicInImg(prod.picUrl, htmlID);
+	}, []);
 
 	const printProduct = () => {
 		console.log(product);
@@ -28,11 +34,7 @@ export const InventoryItem = ({ ...prod }) => {
 		<div className="inventory-item-wrapper">
 			<div className="product-info" onClick={handleGoToProduct}>
 				<p id="product-name">{prod.name}</p>
-				<img
-					src={require(`../pics/${imageName}.png`)}
-					alt="product"
-					className="image"
-				></img>
+				<img alt="product" className="image" id={htmlID}></img>
 				<div className="product-info-div">
 					<p className="product-info-p">{`Memory: ${prod.memory}GB RAM `}</p>{' '}
 					<p className="product-info-p">{`Storage: ${prod.storage}`}</p>{' '}

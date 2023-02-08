@@ -57,6 +57,7 @@ type ValueTypes = {
 	removeItemFromCart: (prod: DocumentData) => Promise<void>;
 	fetchProducts: () => Promise<void>;
 	fetchCurrentUserEmail: () => Promise<string | null | undefined>;
+	putPicInImg: (nameOfPic: string, imgId: string) => Promise<void>;
 	fireAuth: Auth;
 };
 
@@ -94,6 +95,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
 	const cartsCollectionRef = collection(db, 'carts');
+	const storageRef = ref(storage);
 	// const firebaseUser = fireAuth.currentUser;
 
 	useEffect(() => {
@@ -109,6 +111,12 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const fetchProducts = async () => {
 		const data = await getDocs(productsCollectionRef);
 		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const putPicInImg = async (nameOfPic: string, imgId: string) => {
+		const request = await getDownloadURL(ref(storage, nameOfPic));
+		const img = document.getElementById(imgId);
+		img?.setAttribute('src', request);
 	};
 
 	const logout = async () => {
@@ -218,6 +226,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				purchaseCart,
 				removeItemFromCart,
 				fetchProducts,
+				putPicInImg,
 				fetchCurrentUserEmail,
 				fireAuth
 			}}
