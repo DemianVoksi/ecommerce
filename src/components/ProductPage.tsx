@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import { DocumentData, getDocs, query, where } from 'firebase/firestore';
 import './product.css';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
 export const ProductPage = () => {
 	const values = useAuth();
@@ -40,53 +42,61 @@ export const ProductPage = () => {
 	};
 
 	return (
-		<div className="product-container">
-			<div className="image-container">
-				<img
-					// src={require(`../pics/${productName}`)}
-					alt="product"
-					className="product-image"
-					id="product-image"
-				></img>
-				<p className="product-price">Price: {product[0]?.price} SEK</p>
+		<div className="product-page-container">
+			<Header />
+			<div className="product-container">
+				<div className="image-container">
+					<img
+						// src={require(`../pics/${productName}`)}
+						alt="product"
+						className="product-image"
+						id="product-image"
+					></img>
+					<p className="product-price">
+						Price: {product[0]?.price} kr
+					</p>
+				</div>
+				<div className="info-container">
+					<div className="title-container">
+						<p className="product-title">{product[0]?.name}</p>
+					</div>
+					<div className="product-details-container">
+						<p className="product-details">
+							Memory: {product[0]?.memory} GB
+						</p>
+						<p className="product-details">
+							Storage: {product[0]?.storage}
+						</p>
+						<p className="product-details">
+							Processor: {product[0]?.processor}
+						</p>
+						<p className="product-details">
+							Screen: {product[0]?.screenSize}
+						</p>
+						<p className="product-details">
+							Operating system: {product[0]?.os}
+						</p>
+						<p className="product-details">
+							Weight: {product[0]?.weight} kg
+						</p>
+					</div>
+					<div className="product-buttons-container">
+						<button
+							className="product-button"
+							onClick={handlePurchase}
+						>
+							Purchase
+						</button>
+						<button
+							className="product-button"
+							onClick={handleAddToCart}
+						>
+							Add to cart
+						</button>
+					</div>
+				</div>
 			</div>
-			<div className="info-container">
-				<div className="title-container">
-					<p className="product-title">{product[0]?.name}</p>
-				</div>
-				<div className="product-details-container">
-					<p className="product-details">
-						Memory: {product[0]?.memory} GB
-					</p>
-					<p className="product-details">
-						Storage: {product[0]?.storage}
-					</p>
-					<p className="product-details">
-						Processor: {product[0]?.processor}
-					</p>
-					<p className="product-details">
-						Screen: {product[0]?.screenSize}
-					</p>
-					<p className="product-details">
-						Operating system: {product[0]?.os}
-					</p>
-					<p className="product-details">
-						Weight: {product[0]?.weight} kg
-					</p>
-				</div>
-				<div className="product-buttons-container">
-					<button className="product-button" onClick={handlePurchase}>
-						Purchase
-					</button>
-					<button
-						className="product-button"
-						onClick={handleAddToCart}
-					>
-						Add to cart
-					</button>
-					<button onClick={handleGoBack}>go back</button>
-				</div>
-			</div>
+			<Footer />
 		</div>
 	);
 };

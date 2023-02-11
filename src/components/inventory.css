@@ -1,14 +1,17 @@
 .inventory-wrapper {
+  /* border: 1px solid blue; */
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
   justify-content: center;
-  margin: 40px 20px;
+  align-items: center;
+  margin: 40px 40px;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 844px) {
 	.inventory-wrapper {
-		width: 100;
+		width: 100%;
 		flex-direction: column;
     justify-content: center;
 		align-items: center;

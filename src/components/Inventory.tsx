@@ -45,9 +45,9 @@ export const Inventory = () => {
 						<InventoryItem {...prod} />
 					</div>
 				))}
-				<button onClick={printCart}>print cart</button>
+				{/* <button onClick={printCart}>print cart</button>
 				<button onClick={goToPurchase}>go to purchase</button>
-				<button onClick={printUser}>print user</button>
+				<button onClick={printUser}>print user</button> */}
 			</div>
 		);
 	} else return <p>Loading...</p>;
