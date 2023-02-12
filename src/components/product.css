@@ -41,6 +41,7 @@
 .product-title {
   font-size: 25px;
   font-weight: 300;
+  border-bottom: 1px solid gray;
 }
 
 .product-details-container {}
@@ -56,10 +57,22 @@
 }
 
 .product-button {
+  color: var(--background-white);
+  padding: 10px 14px;
   border: 2px solid var(--logo-blue);
   border-radius: 5px;
   font: var(--roboto);
   font-size: 13px;
   margin: 2px;
   background-color: var(--logo-blue);
+  margin: 5px;
+}
+
+.product-button:hover {
+  box-shadow: 0 1px 5px 0 #6f737b;
+}
+
+.product-price {
+  font-family: var(--roboto);
+  font-size: 16px;
 }
