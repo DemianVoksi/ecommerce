@@ -25,11 +25,15 @@ export const PurchasePage = () => {
 			<div className="purchase-content">
 				<div className="cart-contents">
 					{/* <CartInPurchase /> */}
+					<h4>In your cart: </h4>
 					<div className="cart-in-purchase-container">
 						<div>
 							{values.cart[0]?.cart.map(
 								(item: any, index: number) => (
-									<div key={index}>
+									<div
+										className="purchase-cart-item"
+										key={index}
+									>
 										{' '}
 										<p>
 											{item.name}: {item.price} SEK
@@ -42,6 +46,7 @@ export const PurchasePage = () => {
 				</div>
 				<div className="purchase-form-container">
 					<form className="purchase-form" onSubmit={handlePurchase}>
+						<h4>Customer information: </h4>
 						<div className="purchase-form-div" id="name-div">
 							<label
 								className="purchase-form-label"
@@ -503,6 +508,7 @@ export const PurchasePage = () => {
 								onChange={(e) => setRegion(e.target.value)}
 							></input>
 						</div>
+						<h4 id="card-information">Card information: </h4>
 						<div className="purchase-form-div" id="cardNo-div">
 							<label
 								className="purchase-form-label"
