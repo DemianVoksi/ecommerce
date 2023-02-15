@@ -1,11 +1,9 @@
+import { DocumentData } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SiteContext } from '../utils/ContextProvider';
 import './inventory.css';
 import { InventoryItem } from './InventoryItem';
-import { db } from '../utils/firebaseConfig';
-import { collection, DocumentData, getDocs } from 'firebase/firestore';
-import { SiteContext } from '../utils/ContextProvider';
-import { useNavigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
 
 export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;
@@ -17,25 +15,11 @@ export const Inventory = () => {
 		// fetchActiveCart();
 	}, []);
 
-	const fetchActiveCart = async () => {
-		const fetchedCart = await values.snapshotCart();
-		const cart = fetchedCart;
-		setUsercart(cart);
-	};
-
-	const printCart = () => {
-		console.log(userCart);
-	};
-
-	const goToPurchase = () => {
-		navigate('/purchase');
-		values.snapshotCart();
-	};
-
-	const printUser = () => {
-		let user = values.fetchCurrentUserEmail();
-		console.log(user);
-	};
+	// const fetchActiveCart = async () => {
+	// 	const fetchedCart = await values.snapshotCart();
+	// 	const cart = fetchedCart;
+	// 	setUsercart(cart);
+	// };
 
 	if (values.allProducts) {
 		return (
@@ -45,9 +29,6 @@ export const Inventory = () => {
 						<InventoryItem {...prod} />
 					</div>
 				))}
-				{/* <button onClick={printCart}>print cart</button>
-				<button onClick={goToPurchase}>go to purchase</button>
-				<button onClick={printUser}>print user</button> */}
 			</div>
 		);
 	} else return <p>Loading...</p>;

@@ -28,7 +28,6 @@ p {}
 }
 
 .one-form-wrapper {
-  background-color: #dcdcdc;
   border-radius: 5px;
   width: 100%;
   margin-bottom: 35px;
@@ -39,6 +38,7 @@ p {}
 }
 
 .form {
+  margin-bottom: 15px;
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -56,6 +56,7 @@ p {}
 }
 
 .form-email-wrapper {
+  margin-bottom: 5px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -88,7 +89,14 @@ p {}
 }
 
 .form-button {
-  padding: 5px 10px;
+  background-color: var(--logo-blue);
+  color: var(--background-white);
+  padding: 10px 14px;
+  border: none;
+  border-radius: 5px;
+  font: var(--roboto);
+  font-size: 13px;
+  margin-right: 5px;
 }
 
 #register-form {}

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SiteContext } from '../utils/ContextProvider';
 import './header.css';
@@ -22,10 +22,6 @@ export const Header = () => {
 				<div className="header-buttons">
 					<LoggedInButtons />
 				</div>
-				{/* <p>Current user from state: {values?.user?.email}</p>
-				<div>
-					is logged in: {values?.isLoggedIn ? <p>yes</p> : <p>no</p>}
-				</div> */}
 			</div>
 		);
 	} else {
@@ -37,10 +33,6 @@ export const Header = () => {
 				<div className="header-buttons">
 					<LoggedOutButtons />
 				</div>
-				{/* <p>Current user from state: {values?.user?.email}</p>
-				<div>
-					is logged in: {values?.isLoggedIn ? <p>yes</p> : <p>no</p>}
-				</div> */}
 			</div>
 		);
 	}

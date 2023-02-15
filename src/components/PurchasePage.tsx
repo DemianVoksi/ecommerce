@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
-import './purchase.css';
-import { CartInPurchase } from './CartInPurchase';
+import { useContext, useState } from 'react';
+import { SiteContext } from '../utils/ContextProvider';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { SiteContext } from '../utils/ContextProvider';
+import './purchase.css';
 
 export const PurchasePage = () => {
 	const [name, setName] = useState<string>('');
@@ -24,7 +23,6 @@ export const PurchasePage = () => {
 			<Header />
 			<div className="purchase-content">
 				<div className="cart-contents">
-					{/* <CartInPurchase /> */}
 					<h4>In your cart: </h4>
 					<div className="cart-in-purchase-container">
 						<div>

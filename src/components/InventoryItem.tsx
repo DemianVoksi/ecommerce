@@ -5,7 +5,6 @@ import './inventoryItem.css';
 
 export const InventoryItem = ({ ...prod }) => {
 	const values = useAuth();
-	const imageName = prod.name;
 	const product = { ...prod };
 	const navigate = useNavigate();
 	const htmlID = prod.picUrl;
@@ -13,10 +12,6 @@ export const InventoryItem = ({ ...prod }) => {
 	useEffect(() => {
 		values.putPicInImg(prod.picUrl, htmlID);
 	}, []);
-
-	const printProduct = () => {
-		console.log(product);
-	};
 
 	const handleAddItem = () => {
 		values.addItemToCart(prod);
@@ -54,10 +49,6 @@ export const InventoryItem = ({ ...prod }) => {
 					>
 						Go to product page
 					</button>
-					{/* <button className="inventory-button" onClick={handleRemoveItem}>
-					Remove from cart
-				</button>
-				<button onClick={printProduct}>Print</button> */}
 				</div>
 			</div>
 		</div>

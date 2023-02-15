@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-// import { Header } from './Header';
+import { DocumentData, getDocs, query, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
-import { DocumentData, getDocs, query, where } from 'firebase/firestore';
-import './product.css';
-import { Header } from './Header';
 import { Footer } from './Footer';
+import { Header } from './Header';
+import './product.css';
 
 export const ProductPage = () => {
 	const values = useAuth();
@@ -37,17 +36,12 @@ export const ProductPage = () => {
 
 	const handleAddToCart = () => {};
 
-	const handleGoBack = () => {
-		navigate('/');
-	};
-
 	return (
 		<div className="product-page-container">
 			<Header />
 			<div className="product-container">
 				<div className="image-container">
 					<img
-						// src={require(`../pics/${productName}`)}
 						alt="product"
 						className="product-image"
 						id="product-image"
