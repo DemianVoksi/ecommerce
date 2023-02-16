@@ -18,6 +18,7 @@ export const Header = () => {
 			<div className="header-wrapper">
 				<div className="logo-wrapper" onClick={handleGoBack}>
 					<h4 className="logo">The Computer Shop</h4>
+					{/* <p>user: {values.fireAuth.currentUser?.email}</p> */}
 				</div>
 				<div className="header-buttons">
 					<LoggedInButtons />

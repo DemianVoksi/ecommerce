@@ -1,17 +1,19 @@
 import React from 'react';
-import './loggedInOutButtons.css';
 import { useNavigate } from 'react-router-dom';
 import { SiteContext } from '../utils/ContextProvider';
+import './loggedInOutButtons.css';
 
 export const LoggedInButtons = () => {
 	const values = React.useContext(SiteContext);
 	const navigate = useNavigate();
+
 	const handleLogout = () => {
 		values?.logout();
 		navigate('/');
 	};
-	const handleViewCart = () => {
-		navigate('/cart');
+
+	const handleGoToProfile = () => {
+		navigate('/user-profile');
 	};
 
 	return (
@@ -26,8 +28,8 @@ export const LoggedInButtons = () => {
 			>
 				Log out
 			</button>
-			<button className="button" onClick={handleViewCart}>
-				View cart
+			<button className="button" onClick={handleGoToProfile}>
+				Profile page
 			</button>
 		</div>
 	);

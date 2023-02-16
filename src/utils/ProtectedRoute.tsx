@@ -1,21 +1,21 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './ContextProvider';
+import { firebaseAuth } from './firebaseConfig';
 
 type ProtectedRouteProps = {
 	children: React.ReactNode;
 };
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-	const auth = useAuth();
+	const auth = firebaseAuth;
 
-	if (auth?.user) {
-		return <>{children}</>;
-	} else {
+	if (!auth.currentUser) {
 		return (
 			<>
-				<Navigate to='/' />
+				<Navigate to="/" />
 			</>
 		);
+	} else {
+		return <>{children}</>;
 	}
 };
