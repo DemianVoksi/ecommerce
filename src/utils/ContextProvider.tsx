@@ -1,25 +1,25 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
-	getAuth,
-	signOut,
 	Auth,
+	getAuth,
 	onAuthStateChanged,
+	signOut,
 	User
 } from 'firebase/auth';
 import {
+	arrayUnion,
 	collection,
 	CollectionReference,
 	doc,
 	DocumentData,
 	getDocs,
 	query,
-	where,
 	setDoc,
 	updateDoc,
-	arrayUnion
+	where
 } from 'firebase/firestore';
-import { app, db, storage } from './firebaseConfig';
 import { getDownloadURL, ref } from 'firebase/storage';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { db, storage } from './firebaseConfig';
 
 type UserContextProviderProps = {
 	children: React.ReactNode;
@@ -103,9 +103,10 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			if (!!user) {
 				setUser(user);
 				setIsLoggedIn(true);
-				snapshotCart();
 			}
 		});
+		snapshotCart();
+		console.log('use effect triggered');
 	}, []);
 
 	const fetchProducts = async () => {
@@ -154,22 +155,67 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			id: doc.id
 		}));
 		setCart(userCart);
+		// console.log(cart[0].cart);
 		return userCart;
 	};
 
-	const addItemToCart = async (prod: DocumentData) => {
+	const addItemToCart2 = async (prod: DocumentData) => {
+		// old version
 		const userCart = await snapshotCart();
 		// makes new array and initialises it with the current user cart
 		let newUserCart = [...userCart];
+
+		// console.log(newUserCart[0].cart);
+		// console.log(prod);
+
 		// pushes selected product into the array
 		newUserCart[0].cart.push(prod);
 		// sets state with the updated array
-		setCart(newUserCart);
+		// setCart(newUserCart);
 		// updates the firestore user cart with the new updated state
-		await updateDoc(doc(cartsCollectionRef, userCart[0].id), {
-			cart: arrayUnion(...userCart[0].cart)
+		await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
+			cart: arrayUnion(...newUserCart[0].cart)
 		});
 		console.log(`added item to cart ${userCart[0].id}`);
+	};
+
+	const addItemToCart = async (prod: DocumentData) => {
+		// makes a copy of the user cart in newUserCart
+		const userCart = await snapshotCart();
+		setCart(userCart);
+		let newUserCart = [...userCart];
+		let productIDs = [];
+
+		// makes an array of cart element id's to loop through
+		// and check if there is already an item in the cart
+		for (let i = 0; i < userCart[0].cart.length; i++) {
+			productIDs.push(userCart[0].cart[i].id);
+		}
+		let productIsInCart = productIDs.includes(prod.id);
+
+		// adds item to cart or increases quantity
+		if (productIsInCart) {
+			for (let i = 0; i < newUserCart[0].cart.length; i++) {
+				if (prod.id === newUserCart[0].cart[i].id) {
+					newUserCart[0].cart[i].quantity++;
+					await updateDoc(
+						doc(cartsCollectionRef, newUserCart[0].id),
+						{
+							cart: arrayUnion(...newUserCart[0].cart)
+						}
+					);
+					console.log(newUserCart[0].cart);
+				} else {
+				}
+			}
+		} else {
+			newUserCart[0].cart.push(prod);
+			newUserCart[0].cart.at(-1).quantity++;
+			await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
+				cart: arrayUnion(...newUserCart[0].cart)
+			});
+			console.log(`added item to cart ${userCart[0].id}`);
+		}
 	};
 
 	const removeItemFromCart = async (prod: DocumentData) => {
