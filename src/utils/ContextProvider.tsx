@@ -92,6 +92,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[]>([]);
 	const [currentProduct, setCurrentProduct] = useState<DocumentData[]>([]);
+	const [arrayofCartIds, setArrayOfCartIds] = useState<string[]>([]);
 	const fireAuth = getAuth();
 	const productsCollectionRef = collection(db, 'products');
 	const cartsCollectionRef = collection(db, 'carts');
@@ -106,6 +107,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			}
 		});
 		snapshotCart();
+		getArrayOfIds();
 		console.log('use effect triggered');
 	}, []);
 
@@ -159,12 +161,25 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		return userCart;
 	};
 
+	const getArrayOfIds = async () => {
+		let idArray: string[] = [];
+		let snappedCart = await snapshotCart();
+		for (let i = 0; i < snappedCart[0].cart.length; i++) {
+			if (!idArray.includes(snappedCart[0].cart[i].id)) {
+				idArray.push(snappedCart[0].cart[i].id);
+			}
+		}
+		let newArray = [...idArray];
+
+		setArrayOfCartIds(newArray);
+		console.log(arrayofCartIds);
+	};
+
 	const addItemToCart2 = async (prod: DocumentData) => {
 		// old version
 		const userCart = await snapshotCart();
 		// makes new array and initialises it with the current user cart
 		let newUserCart = [...userCart];
-
 		// console.log(newUserCart[0].cart);
 		// console.log(prod);
 
@@ -184,15 +199,14 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		const userCart = await snapshotCart();
 		setCart(userCart);
 		let newUserCart = [...userCart];
-		let productIDs = [];
+		getArrayOfIds();
 
 		// makes an array of cart element id's to loop through
 		// and check if there is already an item in the cart
-		for (let i = 0; i < userCart[0].cart.length; i++) {
-			productIDs.push(userCart[0].cart[i].id);
-		}
-		let productIsInCart = productIDs.includes(prod.id);
-
+		// for (let i = 0; i < userCart[0].cart.length; i++) {
+		// 	productIDs.push(userCart[0].cart[i].id);
+		// }
+		let productIsInCart = arrayofCartIds.includes(prod.id);
 		// adds item to cart or increases quantity
 		if (productIsInCart) {
 			for (let i = 0; i < newUserCart[0].cart.length; i++) {
@@ -201,14 +215,15 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 					await updateDoc(
 						doc(cartsCollectionRef, newUserCart[0].id),
 						{
-							cart: arrayUnion(...newUserCart[0].cart)
+							cart: newUserCart[0].cart
 						}
 					);
-					console.log(newUserCart[0].cart);
+					// console.log(newUserCart[0].cart);
 				} else {
+					console.log('some error');
 				}
 			}
-		} else {
+		} else if (!productIsInCart) {
 			newUserCart[0].cart.push(prod);
 			newUserCart[0].cart.at(-1).quantity++;
 			await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
