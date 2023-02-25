@@ -104,10 +104,10 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			if (!!user) {
 				setUser(user);
 				setIsLoggedIn(true);
+				snapshotCart();
+				getArrayOfIds();
 			}
 		});
-		snapshotCart();
-		getArrayOfIds();
 		console.log('use effect triggered');
 	}, []);
 
@@ -173,25 +173,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 		setArrayOfCartIds(newArray);
 		console.log(arrayofCartIds);
-	};
-
-	const addItemToCart2 = async (prod: DocumentData) => {
-		// old version
-		const userCart = await snapshotCart();
-		// makes new array and initialises it with the current user cart
-		let newUserCart = [...userCart];
-		// console.log(newUserCart[0].cart);
-		// console.log(prod);
-
-		// pushes selected product into the array
-		newUserCart[0].cart.push(prod);
-		// sets state with the updated array
-		// setCart(newUserCart);
-		// updates the firestore user cart with the new updated state
-		await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
-			cart: arrayUnion(...newUserCart[0].cart)
-		});
-		console.log(`added item to cart ${userCart[0].id}`);
 	};
 
 	const addItemToCart = async (prod: DocumentData) => {
