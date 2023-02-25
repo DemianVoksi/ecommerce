@@ -6,7 +6,6 @@ import {
 	User
 } from 'firebase/auth';
 import {
-	arrayUnion,
 	collection,
 	CollectionReference,
 	doc,
@@ -56,6 +55,9 @@ type ValueTypes = {
 	purchaseCart: () => void;
 	removeItemFromCart: (prod: DocumentData) => Promise<void>;
 	fetchProducts: () => Promise<void>;
+	total: number | null;
+	setTotal: React.Dispatch<React.SetStateAction<number | null>>;
+	handleTotal: () => Promise<void>;
 	fetchCurrentUserEmail: () => Promise<string | null | undefined>;
 	putPicInImg: (nameOfPic: string, imgId: string) => Promise<void>;
 	fireAuth: Auth;
@@ -89,6 +91,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [cart, setCart] = useState<DocumentData[]>([]);
+	const [total, setTotal] = useState<number | null>(null);
 	const [toBuy, setToBuy] = useState([]);
 	const [allProducts, setAllProducts] = useState<DocumentData[]>([]);
 	const [currentProduct, setCurrentProduct] = useState<DocumentData[]>([]);
@@ -106,6 +109,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setIsLoggedIn(true);
 				snapshotCart();
 				getArrayOfIds();
+				handleTotal();
 			}
 		});
 		console.log('use effect triggered');
@@ -208,7 +212,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			newUserCart[0].cart.push(prod);
 			newUserCart[0].cart.at(-1).quantity++;
 			await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
-				cart: arrayUnion(...newUserCart[0].cart)
+				cart: newUserCart[0].cart
 			});
 			console.log(`added item to cart ${userCart[0].id}`);
 		}
@@ -229,6 +233,23 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		await updateDoc(doc(cartsCollectionRef, cart[0].id), {
 			cart: [...cart[0].cart]
 		});
+	};
+
+	const toNum = (input: string) => {
+		let num = Number(input.replaceAll(' ', ''));
+		return num;
+	};
+
+	const handleTotal = async () => {
+		const userCart = await snapshotCart();
+		const cartTotal = userCart[0].cart
+			.map((value: any) => {
+				let numbered = toNum(value.price);
+				let itemTotal = numbered * value.quantity;
+				return itemTotal;
+			})
+			.reduce((a: number, b: number) => a + b);
+		setTotal(cartTotal);
 	};
 
 	const purchaseItems = () => {};
@@ -268,6 +289,9 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				purchaseCart,
 				removeItemFromCart,
 				fetchProducts,
+				total,
+				setTotal,
+				handleTotal,
 				putPicInImg,
 				fetchCurrentUserEmail,
 				fireAuth

@@ -16,7 +16,26 @@ export const PurchasePage = () => {
 	const [expiration, setExpiration] = useState<Date | null>(null);
 	const [cardHolder, setCardHolder] = useState<string>('');
 	const values = useContext(SiteContext)!;
-	const handlePurchase = () => {};
+
+	// useEffect(() => {
+	// 	values.handleTotal();
+	// }, []);
+
+	const total = () => {
+		values.handleTotal();
+	};
+
+	const handlePurchase = () => {
+		alert(`
+		Thank you for your purchase, ${name}!
+		Items sent to ${address}, ${zipCode} ${city}, ${region} ${country}.
+		`);
+	};
+
+	const toNum = (input: string) => {
+		let num = Number(input.replaceAll(' ', ''));
+		return num;
+	};
 
 	return (
 		<div className="purchase">
@@ -34,12 +53,15 @@ export const PurchasePage = () => {
 									>
 										{' '}
 										<p>
-											{item.name}: {item.price} SEK
+											Item: {item.name} | Price:{' '}
+											{item.price} SEK | Quantity:{' '}
+											{item.quantity}
 										</p>
 									</div>
 								)
 							)}
 						</div>
+						<p>Total price: {values.total} SEK</p>
 					</div>
 				</div>
 				<div className="purchase-form-container">
@@ -587,7 +609,11 @@ export const PurchasePage = () => {
 							></input>
 						</div>
 						<div className="button-container">
-							<button className="purchase-button" type="submit">
+							<button
+								className="purchase-button"
+								type="submit"
+								onClick={handlePurchase}
+							>
 								Purchase
 							</button>
 						</div>
