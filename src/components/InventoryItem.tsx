@@ -37,13 +37,18 @@ export const InventoryItem = ({ ...prod }) => {
 					<p className="product-info-p">{`Price: ${prod.price} kr`}</p>{' '}
 				</div>
 				<div className="inventory-item-buttons-wrapper">
-					<button
-						className="inventory-button"
-						onClick={handleAddItem}
-					>
-						Add to cart
-					</button>
-					{values.arrayofCartIds.includes(prod.id) ? (
+					{values.isLoggedIn ? (
+						<button
+							className="inventory-button"
+							onClick={handleAddItem}
+						>
+							Add to cart
+						</button>
+					) : (
+						<></>
+					)}
+					{values.isLoggedIn &&
+					values.arrayofCartIds.includes(prod.id) ? (
 						<button
 							className="inventory-button"
 							onClick={handleRemoveItem}

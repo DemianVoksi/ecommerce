@@ -32,6 +32,7 @@ export const LoginPage = () => {
 			console.log(user.user.email);
 			console.log(user);
 			values.setIsLoggedIn(true);
+			values.setIsLoading(true);
 			cleanInputs();
 			navigate('/');
 		} catch (error) {

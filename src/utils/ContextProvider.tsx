@@ -37,12 +37,15 @@ type ValueTypes = {
 	setUser: React.Dispatch<React.SetStateAction<User | null>>;
 	isLoggedIn: boolean;
 	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+	isLoading: boolean;
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 	cart: DocumentData[];
 	setCart: React.Dispatch<React.SetStateAction<DocumentData[]>>;
 	toBuy: never[];
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
 	allProducts: DocumentData[];
 	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[]>>;
+	getArrayOfIds: () => Promise<void>;
 	arrayofCartIds: string[];
 	setArrayOfCartIds: React.Dispatch<React.SetStateAction<string[]>>;
 	productsCollectionRef: CollectionReference<DocumentData>;
@@ -92,6 +95,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const [loginPassword, setLoginPassword] = useState('');
 	const [user, setUser] = useState<User | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [cart, setCart] = useState<DocumentData[]>([]);
 	const [total, setTotal] = useState<number | null>(null);
 	const [toBuy, setToBuy] = useState([]);
@@ -114,7 +118,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				handleTotal();
 			}
 		});
-		console.log('use effect triggered');
 	}, []);
 
 	const fetchProducts = async () => {
@@ -163,7 +166,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 			id: doc.id
 		}));
 		setCart(userCart);
-		// console.log(cart[0].cart);
+		setIsLoading(false);
 		return userCart;
 	};
 
@@ -188,13 +191,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		let newUserCart = [...userCart];
 		getArrayOfIds();
 
-		// makes an array of cart element id's to loop through
-		// and check if there is already an item in the cart
-		// for (let i = 0; i < userCart[0].cart.length; i++) {
-		// 	productIDs.push(userCart[0].cart[i].id);
-		// }
 		let productIsInCart = arrayofCartIds.includes(prod.id);
-		// adds item to cart or increases quantity
 		if (productIsInCart) {
 			for (let i = 0; i < newUserCart[0].cart.length; i++) {
 				if (prod.id === newUserCart[0].cart[i].id) {
@@ -205,7 +202,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 							cart: newUserCart[0].cart
 						}
 					);
-					// console.log(newUserCart[0].cart);
 				} else {
 					console.log('some error');
 				}
@@ -221,7 +217,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const removeItemFromCart = async (prod: DocumentData) => {
-		snapshotCart();
+		await snapshotCart();
 
 		let newProductArr = [...cart];
 		console.log(newProductArr[0].cart);
@@ -273,6 +269,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setUser,
 				isLoggedIn,
 				setIsLoggedIn,
+				isLoading,
+				setIsLoading,
 				cart,
 				setCart,
 				toBuy,
@@ -281,6 +279,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setAllProducts,
 				currentProduct,
 				setCurrentProduct,
+				getArrayOfIds,
 				arrayofCartIds,
 				setArrayOfCartIds,
 				productsCollectionRef,

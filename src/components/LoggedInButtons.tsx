@@ -10,6 +10,7 @@ export const LoggedInButtons = () => {
 	const handleLogout = () => {
 		values?.logout();
 		navigate('/');
+		// values?.setIsLoading(true);
 	};
 
 	const handleGoToProfile = () => {
