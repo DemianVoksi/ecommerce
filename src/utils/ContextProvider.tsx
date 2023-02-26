@@ -43,6 +43,8 @@ type ValueTypes = {
 	setToBuy: React.Dispatch<React.SetStateAction<never[]>>;
 	allProducts: DocumentData[];
 	setAllProducts: React.Dispatch<React.SetStateAction<DocumentData[]>>;
+	arrayofCartIds: string[];
+	setArrayOfCartIds: React.Dispatch<React.SetStateAction<string[]>>;
 	productsCollectionRef: CollectionReference<DocumentData>;
 	cartsCollectionRef: CollectionReference<DocumentData>;
 	currentProduct: DocumentData[];
@@ -279,6 +281,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				setAllProducts,
 				currentProduct,
 				setCurrentProduct,
+				arrayofCartIds,
+				setArrayOfCartIds,
 				productsCollectionRef,
 				cartsCollectionRef,
 				logout,

@@ -34,7 +34,11 @@ export const ProductPage = () => {
 
 	const handlePurchase = () => {};
 
-	const handleAddToCart = () => {};
+	const handleAddToCart = () => {
+		values.addItemToCart(product);
+	};
+
+	const handleRemoveItem = () => {};
 
 	return (
 		<div className="product-page-container">
@@ -87,6 +91,16 @@ export const ProductPage = () => {
 						>
 							Add to cart
 						</button>
+						{values.arrayofCartIds.includes(product[0]?.id) ? (
+							<button
+								className="product-button"
+								onClick={handleRemoveItem}
+							>
+								Remove from cart
+							</button>
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
 			</div>

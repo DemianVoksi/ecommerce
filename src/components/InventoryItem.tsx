@@ -43,6 +43,16 @@ export const InventoryItem = ({ ...prod }) => {
 					>
 						Add to cart
 					</button>
+					{values.arrayofCartIds.includes(prod.id) ? (
+						<button
+							className="inventory-button"
+							onClick={handleRemoveItem}
+						>
+							Remove from cart
+						</button>
+					) : (
+						<></>
+					)}
 					<button
 						className="inventory-button"
 						onClick={handleGoToProduct}
