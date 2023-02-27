@@ -190,8 +190,8 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		setCart(userCart);
 		let newUserCart = [...userCart];
 		getArrayOfIds();
-
 		let productIsInCart = arrayofCartIds.includes(prod.id);
+
 		if (productIsInCart) {
 			for (let i = 0; i < newUserCart[0].cart.length; i++) {
 				if (prod.id === newUserCart[0].cart[i].id) {
@@ -203,7 +203,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 						}
 					);
 				} else {
-					console.log('some error');
+					console.log('other products exist');
 				}
 			}
 		} else if (!productIsInCart) {
@@ -217,20 +217,38 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const removeItemFromCart = async (prod: DocumentData) => {
-		await snapshotCart();
+		const userCart = await snapshotCart();
+		setCart(userCart);
+		let newUserCart = [...userCart];
+		getArrayOfIds();
 
-		let newProductArr = [...cart];
-		console.log(newProductArr[0].cart);
-		const index = newProductArr[0].cart
-			.map((product: any) => product.id)
-			.indexOf(prod.id);
-		if (index > -1) {
-			newProductArr[0].cart.splice(index, 1);
+		for (let i = 0; i < newUserCart[0].cart.length; i++) {
+			if (
+				prod.id === newUserCart[0].cart[i].id &&
+				newUserCart[0].cart[i].quantity > 1
+			) {
+				newUserCart[0].cart[i].quantity--;
+				setCart(newUserCart);
+				await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
+					cart: newUserCart[0].cart
+				});
+			} else if (
+				prod.id === newUserCart[0].cart[i].id &&
+				newUserCart[0].cart[i].quantity === 1
+			) {
+				let newIDs = arrayofCartIds.filter(
+					(item) => item !== newUserCart[0].cart[i].id
+				);
+				setArrayOfCartIds(newIDs);
+				newUserCart[0].cart.splice(i, 1);
+				setCart(newUserCart);
+				await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
+					cart: newUserCart[0].cart
+				});
+			} else {
+				console.log('other products exist');
+			}
 		}
-		setCart(newProductArr);
-		await updateDoc(doc(cartsCollectionRef, cart[0].id), {
-			cart: [...cart[0].cart]
-		});
 	};
 
 	const toNum = (input: string) => {

@@ -1,11 +1,4 @@
-import {
-	doc,
-	DocumentData,
-	getDocs,
-	query,
-	updateDoc,
-	where
-} from 'firebase/firestore';
+import { DocumentData, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
@@ -42,42 +35,12 @@ export const ProductPage = () => {
 	const handlePurchase = () => {};
 
 	const handleAddToCart = async () => {
-		const userCart = await values.snapshotCart();
-		values.setCart(userCart);
-		let newUserCart = [...userCart];
-		values.getArrayOfIds();
-
-		let productIsInCart = values.arrayofCartIds.includes(productID.id!);
-
-		if (productIsInCart) {
-			for (let i = 0; i < newUserCart[0].cart.length; i++) {
-				if (productID.id === newUserCart[0].cart[i].id) {
-					newUserCart[0].cart[i].quantity++;
-					await updateDoc(
-						doc(values.cartsCollectionRef, newUserCart[0].id),
-						{
-							cart: newUserCart[0].cart
-						}
-					);
-				} else {
-					console.log('some error');
-				}
-			}
-		} else if (!productIsInCart) {
-			newUserCart[0].cart.push(product);
-			newUserCart[0].cart.at(-1).quantity++;
-			await updateDoc(doc(values.cartsCollectionRef, newUserCart[0].id), {
-				cart: newUserCart[0].cart
-			});
-			console.log(`added item to cart ${userCart[0].id}`);
-		}
+		values.addItemToCart(product[0]);
 	};
 
-	const handleRemoveItem = () => {};
-
-	// const handlePrint = () => {
-	// 	console.log(product);
-	// };
+	const handleRemoveItem = async () => {
+		values.removeItemFromCart(product[0]);
+	};
 
 	return (
 		<div className="product-page-container">
@@ -140,7 +103,6 @@ export const ProductPage = () => {
 						) : (
 							<></>
 						)}
-						{/* <button onClick={handlePrint}>print product</button> */}
 					</div>
 				</div>
 			</div>
