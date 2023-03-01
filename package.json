@@ -47,5 +47,8 @@
         "singleQuote": true,
         "trailingComma": "none",
         "useTabs": true
+    },
+    "devDependencies": {
+        "react-helmet-async": "^1.3.0"
     }
 }

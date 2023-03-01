@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { SiteContext } from '../utils/ContextProvider';
 import './loginAndRegister.css';
@@ -47,6 +48,11 @@ export const LoginPage = () => {
 
 	return (
 		<div className="login-page-wrapper">
+			<Helmet>
+				<title>Login</title>
+				<meta name="description" content="Login page" />
+				<link rel="canonical" href="/login" />
+			</Helmet>
 			<div className="login-head-text">
 				<h4>Log in</h4>
 			</div>

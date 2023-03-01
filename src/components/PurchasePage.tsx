@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { SiteContext } from '../utils/ContextProvider';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -39,6 +40,11 @@ export const PurchasePage = () => {
 
 	return (
 		<div className="purchase">
+			<Helmet>
+				<title>Purchase</title>
+				<meta name="description" content="Purchase page" />
+				<link rel="canonical" href="/purchase" />
+			</Helmet>
 			<Header />
 			<div className="purchase-content">
 				<div className="cart-contents">
