@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
-h4 {}
-
-p {}
-
 .login-page-wrapper {
   width: 100vh;
   height: 100vh;
@@ -66,10 +62,6 @@ p {}
   font-size: 17px;
 }
 
-.form-label-email {}
-
-.form-input-email {}
-
 .form-password-wrapper {
   width: 100%;
   display: flex;
@@ -79,10 +71,6 @@ p {}
   font-weight: 300;
   font-size: 17px;
 }
-
-.form-label-password {}
-
-.form-input-password {}
 
 .button-container {
   margin-top: 10px;
@@ -98,7 +86,3 @@ p {}
   font-size: 13px;
   margin-right: 5px;
 }
-
-#register-form {}
-
-#login-form {}

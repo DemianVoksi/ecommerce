@@ -30,8 +30,6 @@ export const LoginPage = () => {
 				values.loginEmail,
 				values.loginPassword
 			);
-			console.log(user.user.email);
-			console.log(user);
 			values.setIsLoggedIn(true);
 			values.setIsLoading(true);
 			cleanInputs();

@@ -1,5 +1,3 @@
-.logged-in-out-buttons-wrapper {}
-
 .button {
   background-color: var(--positive-green);
   color: var(--background-white);
@@ -15,17 +13,6 @@
   box-shadow: 0 1px 5px 0 #6f737b;
 }
 
-#logged-in-buttons.wrapper {}
-
-#logged-out-buttons-wrapper {}
-
-#login-button {
-}
-
 #logout-button {
   background-color: var(--negative-red);
-}
-
-#logout-button:focus {
-  
 }

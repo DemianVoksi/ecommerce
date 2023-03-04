@@ -5,7 +5,6 @@ import './inventoryItem.css';
 
 export const InventoryItem = ({ ...prod }) => {
 	const values = useAuth();
-	const product = { ...prod };
 	const navigate = useNavigate();
 	const htmlID = prod.picUrl;
 

@@ -1,7 +1,7 @@
 import { DocumentData, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../utils/ContextProvider';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -12,7 +12,6 @@ export const ProductPage = () => {
 	let productID = useParams();
 	let productName = `${productID.id}.png`;
 	const [product, setProduct] = useState<DocumentData[]>([])!;
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		snapshotProduct();

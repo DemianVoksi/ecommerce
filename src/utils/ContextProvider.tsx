@@ -84,8 +84,6 @@ export interface CurrentProduct {
 	picUrl: string;
 }
 
-// define types of all value variables
-
 export const SiteContext = createContext<ValueTypes | null>(null);
 
 export const ContextProvider = ({ children }: UserContextProviderProps) => {
@@ -106,7 +104,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const productsCollectionRef = collection(db, 'products');
 	const cartsCollectionRef = collection(db, 'carts');
 	const storageRef = ref(storage);
-	// const firebaseUser = fireAuth.currentUser;
 
 	useEffect(() => {
 		onAuthStateChanged(fireAuth, (user) => {
@@ -154,7 +151,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const snapshotCart = async (): Promise<DocumentData[]> => {
-		// queries current user cart and puts it into state
 		const curUserEmail = await fetchCurrentUserEmail();
 		const userCartQuery = query(
 			cartsCollectionRef,
@@ -185,7 +181,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const addItemToCart = async (prod: DocumentData) => {
-		// makes a copy of the user cart in newUserCart
 		const userCart = await snapshotCart();
 		setCart(userCart);
 		let newUserCart = [...userCart];

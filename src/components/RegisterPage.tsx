@@ -30,7 +30,6 @@ export const RegisterPage = () => {
 				values.registerEmail,
 				values.registerPassword
 			);
-			console.log(newUser.user.email);
 			values.setIsLoggedIn(true);
 			cleanInputs();
 			navigate('/');

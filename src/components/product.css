@@ -36,15 +36,11 @@
   flex-direction: column;
 }
 
-.title-container {}
-
 .product-title {
   font-size: 25px;
   font-weight: 300;
   border-bottom: 1px solid gray;
 }
-
-.product-details-container {}
 
 .product-details {
   margin: 1vh;

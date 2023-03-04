@@ -155,7 +155,6 @@ export const PurchasePage = () => {
 							>
 								Country:{' '}
 							</label>
-							{/* https://stackoverflow.com/a/53388031 */}
 							<select
 								className="purchase-form-input"
 								id="country-input"

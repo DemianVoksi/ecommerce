@@ -43,10 +43,7 @@ h4 {
   align-items: center;
 }
 
-.purchase-form {}
-
 .purchase-form-div {
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -59,71 +56,9 @@ h4 {
 }
 
 .purchase-form-input {
-  /* border: 1px solid blue; */
-  /* border-radius: 2px; */
   width: 200px;
   font-family: var(--roboto);  
 }
-
-#name-div {}
-
-#name-label {}
-
-#name-input {}
-
-#address-div {}
-
-#address-label {}
-
-#address-input {}
-
-#city-div {}
-
-#city-label {}
-
-#city-input {}
-
-#zip-code-div {}
-
-#zip-code-label {}
-
-#zip-code-input {}
-
-#country-div {}
-
-#country-label {}
-
-#country-input {}
-
-#region-div {}
-
-#region-label {}
-
-#region-input {}
-
-#cardNo-div {}
-
-#cardNo-label {}
-
-#cardNo-input {}
-
-#safety-code-div {}
-
-#safety-code-label {}
-
-#safety-code-input {}
-
-#expiration-div {}
-
-#expiration-label {}
-
-#expiration-input {}
-
-#card-holder-div {}
-
-#card-holder-label {}
-
-#card-holder-input {}
 
 .button-container {
   display: flex;
