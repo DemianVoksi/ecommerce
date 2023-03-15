@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { SiteContext } from '../utils/ContextProvider';
-import { Footer } from './Footer';
-import { Header } from './Header';
-import { Inventory } from './Inventory';
+import { SiteContext } from '../../utils/ContextProvider';
+import { Footer } from '../footer/Footer';
+import { Header } from '../header/Header';
+import { Inventory } from '../inventory/Inventory';
+import { RollerPage } from '../roller/RollerPage';
 import './main.css';
-import { RollerPage } from './RollerPage';
 
 export const MainPage = () => {
 	const values = useContext(SiteContext);

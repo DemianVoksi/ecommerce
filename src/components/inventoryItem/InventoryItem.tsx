@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../utils/ContextProvider';
+import { useAuth } from '../../utils/ContextProvider';
 import './inventoryItem.css';
 
 export const InventoryItem = ({ ...prod }) => {

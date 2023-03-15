@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SiteContext } from '../utils/ContextProvider';
+import { SiteContext } from '../../utils/ContextProvider';
+import { LoggedInButtons } from '../loginAndRegister/LoggedInButtons';
+import { LoggedOutButtons } from '../loginAndRegister/LoggedOutButtons';
 import './header.css';
-import { LoggedInButtons } from './LoggedInButtons';
-import { LoggedOutButtons } from './LoggedOutButtons';
 
 export const Header = () => {
 	const values = React.useContext(SiteContext);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SiteContext } from '../utils/ContextProvider';
+import { SiteContext } from '../../utils/ContextProvider';
 import './loggedInOutButtons.css';
 
 export const LoggedInButtons = () => {

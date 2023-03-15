@@ -1,42 +1,43 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { SiteContext } from '../utils/ContextProvider';
+import { SiteContext } from '../../utils/ContextProvider';
 import './loginAndRegister.css';
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
 	const values = React.useContext(SiteContext)!;
 	const navigate = useNavigate();
 
 	const cleanInputs = () => {
-		const loginEmailInput = document.getElementById(
-			'login-email'
+		const registerEmailInput = document.getElementById(
+			'register-email'
 		) as HTMLInputElement;
-		loginEmailInput.value = '';
-		const loginPasswordInput = document.getElementById(
-			'login-password'
+		registerEmailInput.value = '';
+		const registerPasswordInput = document.getElementById(
+			'register-password'
 		) as HTMLInputElement;
-		loginPasswordInput.value = '';
-		values.setLoginEmail('');
-		values.setLoginPassword('');
+		registerPasswordInput.value = '';
+		values.setRegisterEmail('');
+		values.setRegisterPassword('');
 	};
 
-	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const user = await signInWithEmailAndPassword(
+			const newUser = await createUserWithEmailAndPassword(
 				values.fireAuth,
-				values.loginEmail,
-				values.loginPassword
+				values.registerEmail,
+				values.registerPassword
 			);
 			values.setIsLoggedIn(true);
-			values.setIsLoading(true);
 			cleanInputs();
 			navigate('/');
+			values.createNewCart(values.registerEmail);
+			return newUser;
 		} catch (error) {
-			alert(error);
 			cleanInputs();
+			alert(error);
 		}
 	};
 
@@ -47,65 +48,68 @@ export const LoginPage = () => {
 	return (
 		<div className="login-page-wrapper">
 			<Helmet>
-				<title>Login</title>
-				<meta name="description" content="Login page" />
-				<link rel="canonical" href="/login" />
+				<title>Register</title>
+				<meta name="description" content="Register page" />
+				<link rel="canonical" href="/register" />
 			</Helmet>
 			<div className="login-head-text">
-				<h4>Log in</h4>
+				<h4>Register a new account</h4>
 			</div>
 
 			<div className="both-forms-wrapper">
-				<div className="one-form-wrapper" id="login-form-wrapper">
+				<div className="one-form-wrapper" id="register-form-wrapper">
 					<form
 						className="form"
-						id="login-form"
-						onSubmit={handleLogin}
+						id="register-form"
+						onSubmit={handleRegister}
 					>
+						<p className="form-title-p">Register</p>
 						<div className="form-email-wrapper">
 							<label
 								className="form-label-email"
-								htmlFor="login-email"
+								htmlFor="register-email"
 							>
 								Email:{' '}
 							</label>
 							<input
 								className="form-input-email"
-								id="login-email"
+								id="register-email"
 								type="email"
-								name="login-email"
+								name="register-email"
 								placeholder="Enter email..."
 								minLength={6}
 								maxLength={50}
 								required
-								value={values!.loginEmail}
+								value={values!.registerEmail}
 								onChange={(e) =>
-									values.setLoginEmail(e.target.value)
+									values.setRegisterEmail(e.target.value)
 								}
 							/>
 						</div>
 						<div className="form-password-wrapper">
 							<label
 								className="form-label-password"
-								htmlFor="login-password"
+								htmlFor="register-password"
 							>
 								Password:{' '}
 							</label>
 							<input
 								className="form-input-password"
-								id="login-password"
+								id="register-password"
 								type="password"
-								name="login-password"
+								name="register-password"
 								placeholder="Enter password..."
 								minLength={8}
-								value={values!.loginPassword}
+								value={values!.registerPassword}
 								onChange={(e) =>
-									values.setLoginPassword(e.target.value)
+									values.setRegisterPassword(e.target.value)
 								}
 							/>
 						</div>
 						<div className="button-container">
-							<button className="form-button">Log in</button>
+							<button className="form-button" type="submit">
+								Register
+							</button>
 						</div>
 					</form>
 					<div className="return-home-container" id="return-home">

@@ -1,8 +1,8 @@
 import { DocumentData } from 'firebase/firestore';
 import React, { useEffect } from 'react';
-import { SiteContext } from '../utils/ContextProvider';
+import { SiteContext } from '../../utils/ContextProvider';
+import { InventoryItem } from '../inventoryItem/InventoryItem';
 import './inventory.css';
-import { InventoryItem } from './InventoryItem';
 
 export const Inventory = () => {
 	const values = React.useContext(SiteContext)!;

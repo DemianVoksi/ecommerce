@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { SiteContext } from '../utils/ContextProvider';
-import { Footer } from './Footer';
-import { Header } from './Header';
+import { SiteContext } from '../../utils/ContextProvider';
+import { Footer } from '../footer/Footer';
+import { Header } from '../header/Header';
 import './userProfile.css';
 
 export const UserProfilePage = () => {

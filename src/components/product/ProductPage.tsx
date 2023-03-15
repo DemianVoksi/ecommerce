@@ -2,9 +2,9 @@ import { DocumentData, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../utils/ContextProvider';
-import { Footer } from './Footer';
-import { Header } from './Header';
+import { useAuth } from '../../utils/ContextProvider';
+import { Footer } from '../footer/Footer';
+import { Header } from '../header/Header';
 import './product.css';
 
 export const ProductPage = () => {
