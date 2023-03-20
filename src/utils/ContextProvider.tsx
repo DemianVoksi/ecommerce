@@ -106,6 +106,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const storageRef = ref(storage);
 
 	useEffect(() => {
+		setIsLoading(true);
 		onAuthStateChanged(fireAuth, (user) => {
 			if (!!user) {
 				setUser(user);
@@ -120,6 +121,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	const fetchProducts = async () => {
 		const data = await getDocs(productsCollectionRef);
 		setAllProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		setIsLoading(false);
 	};
 
 	const putPicInImg = async (nameOfPic: string, imgId: string) => {

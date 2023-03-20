@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../../utils/ContextProvider';
 import { Footer } from '../footer/Footer';
 import { Header } from '../header/Header';
+import { ProductImage } from '../productImage/ProductImage';
+import { RollerPage } from '../roller/RollerPage';
 import './product.css';
 
 export const ProductPage = () => {
@@ -14,8 +16,9 @@ export const ProductPage = () => {
 	const [product, setProduct] = useState<DocumentData[]>([])!;
 
 	useEffect(() => {
+		values.setIsLoading(true);
 		snapshotProduct();
-		values.putPicInImg(productName, 'product-image');
+		console.log('use effect triggered', productName);
 	}, []);
 
 	const snapshotProduct = async () => {
@@ -29,6 +32,7 @@ export const ProductPage = () => {
 			id: doc.id
 		}));
 		setProduct(productProper);
+		values.setIsLoading(false);
 		return product;
 	};
 
@@ -52,14 +56,14 @@ export const ProductPage = () => {
 			<Header />
 			<div className="product-container">
 				<div className="image-container">
-					<img
-						alt="product"
-						className="product-image"
-						id="product-image"
-					></img>
-					<p className="product-price">
-						Price: {product[0]?.price} kr
-					</p>
+					{values.isLoading ? (
+						<RollerPage />
+					) : (
+						<ProductImage
+							product={product}
+							productName={productName}
+						/>
+					)}
 				</div>
 				<div className="info-container">
 					<div className="title-container">
