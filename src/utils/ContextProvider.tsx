@@ -165,6 +165,7 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		}));
 		setCart(userCart);
 		setIsLoading(false);
+		// handleTotal();
 		return userCart;
 	};
 
@@ -255,14 +256,23 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 
 	const handleTotal = async () => {
 		const userCart = await snapshotCart();
-		const cartTotal = userCart[0].cart
-			.map((value: any) => {
-				let numbered = toNum(value.price);
-				let itemTotal = numbered * value.quantity;
-				return itemTotal;
-			})
-			.reduce((a: number, b: number) => a + b);
-		setTotal(cartTotal);
+
+		if (userCart[0].cart.length < 1) {
+			setTotal(0);
+		} else if (userCart[0].cart.length === 1) {
+			let itemTotal =
+				toNum(userCart[0].cart[0].price) * userCart[0].cart[0].quantity;
+			setTotal(itemTotal);
+		} else {
+			const cartTotal = userCart[0].cart
+				.map((value: any) => {
+					let numbered = toNum(value.price);
+					let itemTotal = numbered * value.quantity;
+					return itemTotal;
+				})
+				.reduce((a: number, b: number) => a + b);
+			setTotal(cartTotal);
+		}
 	};
 
 	const purchaseItems = () => {};

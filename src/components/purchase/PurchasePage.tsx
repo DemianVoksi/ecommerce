@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import { SiteContext } from '../../utils/ContextProvider';
 import { Footer } from '../footer/Footer';
 import { Header } from '../header/Header';
@@ -17,6 +18,7 @@ export const PurchasePage = () => {
 	const [expiration, setExpiration] = useState<Date | null>(null);
 	const [cardHolder, setCardHolder] = useState<string>('');
 	const values = useContext(SiteContext)!;
+	const navigate = useNavigate();
 
 	// useEffect(() => {
 	// 	values.handleTotal();
@@ -38,6 +40,10 @@ export const PurchasePage = () => {
 		return num;
 	};
 
+	const handleGoToItem = (itemID: string) => {
+		navigate(`/product/${itemID}`);
+	};
+
 	return (
 		<div className="purchase">
 			<Helmet>
@@ -56,18 +62,20 @@ export const PurchasePage = () => {
 									<div
 										className="purchase-cart-item"
 										key={index}
+										onClick={() => handleGoToItem(item.id)}
 									>
 										{' '}
 										<p>
-											Item: {item.name} | Price:{' '}
-											{item.price} SEK | Quantity:{' '}
-											{item.quantity}
+											{item.name} | {item.price} SEK |{' '}
+											<b>{item.quantity}</b> in cart
 										</p>
 									</div>
 								)
 							)}
 						</div>
-						<p>Total price: {values.total} SEK</p>
+						<p className="total-price-p">
+							<b>Total price:</b> {values.total} SEK
+						</p>
 					</div>
 				</div>
 				<div className="purchase-form-container">

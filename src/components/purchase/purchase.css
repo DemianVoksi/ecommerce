@@ -34,6 +34,17 @@ h4 {
 
 .purchase-cart-item {
   font-family: var(--roboto);
+  padding: 5px;
+  margin: 0;
+  border-radius: 5px;
+}
+
+.purchase-cart-item:hover {
+  box-shadow: 0 1px 5px 0 #6f737b;
+}
+
+.total-price-p {
+  margin-left: 5px;
 }
 
 .purchase-form-container {

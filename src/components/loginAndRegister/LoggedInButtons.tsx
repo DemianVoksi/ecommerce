@@ -12,8 +12,9 @@ export const LoggedInButtons = () => {
 		navigate('/');
 	};
 
-	const handleGoToProfile = () => {
-		navigate('/user-profile');
+	const handleGoToCart = () => {
+		navigate('/purchase');
+		values?.handleTotal();
 	};
 
 	return (
@@ -28,8 +29,8 @@ export const LoggedInButtons = () => {
 			>
 				Log out
 			</button>
-			<button className="button" onClick={handleGoToProfile}>
-				Profile page
+			<button className="button" onClick={handleGoToCart}>
+				Checkout
 			</button>
 		</div>
 	);
