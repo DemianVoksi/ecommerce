@@ -90,19 +90,24 @@ export const ProductPage = () => {
 						</p>
 					</div>
 					<div className="product-buttons-container">
+						{values.isLoggedIn ? (
+							<button
+								className="product-button"
+								onClick={handleAddToCart}
+							>
+								Add to cart
+							</button>
+						) : (
+							<></>
+						)}
 						<button
 							className="product-button"
 							onClick={handlePurchase}
 						>
 							Purchase
 						</button>
-						<button
-							className="product-button"
-							onClick={handleAddToCart}
-						>
-							Add to cart
-						</button>
-						{values.arrayofCartIds.includes(product[0]?.id) ? (
+						{values.isLoggedIn &&
+						values.arrayofCartIds.includes(product[0]?.id) ? (
 							<button
 								className="product-button"
 								onClick={handleRemoveItem}

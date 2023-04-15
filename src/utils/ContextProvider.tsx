@@ -184,33 +184,37 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 	};
 
 	const addItemToCart = async (prod: DocumentData) => {
-		const userCart = await snapshotCart();
-		setCart(userCart);
-		let newUserCart = [...userCart];
-		getArrayOfIds();
-		let productIsInCart = arrayofCartIds.includes(prod.id);
+		if (user) {
+			const userCart = await snapshotCart();
+			setCart(userCart);
+			let newUserCart = [...userCart];
+			getArrayOfIds();
+			let productIsInCart = arrayofCartIds.includes(prod.id);
 
-		if (productIsInCart) {
-			for (let i = 0; i < newUserCart[0].cart.length; i++) {
-				if (prod.id === newUserCart[0].cart[i].id) {
-					newUserCart[0].cart[i].quantity++;
-					await updateDoc(
-						doc(cartsCollectionRef, newUserCart[0].id),
-						{
-							cart: newUserCart[0].cart
-						}
-					);
-				} else {
-					console.log('other products exist');
+			if (productIsInCart) {
+				for (let i = 0; i < newUserCart[0].cart.length; i++) {
+					if (prod.id === newUserCart[0].cart[i].id) {
+						newUserCart[0].cart[i].quantity++;
+						await updateDoc(
+							doc(cartsCollectionRef, newUserCart[0].id),
+							{
+								cart: newUserCart[0].cart
+							}
+						);
+					} else {
+						console.log('other products exist');
+					}
 				}
+			} else if (!productIsInCart) {
+				newUserCart[0].cart.push(prod);
+				newUserCart[0].cart.at(-1).quantity++;
+				await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
+					cart: newUserCart[0].cart
+				});
+				console.log(`added item to cart ${userCart[0].id}`);
 			}
-		} else if (!productIsInCart) {
-			newUserCart[0].cart.push(prod);
-			newUserCart[0].cart.at(-1).quantity++;
-			await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
-				cart: newUserCart[0].cart
-			});
-			console.log(`added item to cart ${userCart[0].id}`);
+		} else {
+			alert('Please make an account to use the cart feature');
 		}
 	};
 
