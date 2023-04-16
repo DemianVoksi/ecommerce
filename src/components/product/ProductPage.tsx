@@ -14,6 +14,9 @@ export const ProductPage = () => {
 	let productID = useParams();
 	let productName = `${productID.id}.png`;
 	const [product, setProduct] = useState<DocumentData[]>([])!;
+	const itemAmount = values.cart[0].cart.filter(
+		(item: any) => item?.name === product[0]?.name
+	);
 
 	useEffect(() => {
 		values.setIsLoading(true);
@@ -35,8 +38,6 @@ export const ProductPage = () => {
 		values.setIsLoading(false);
 		return product;
 	};
-
-	const handlePurchase = () => {};
 
 	const handleAddToCart = async () => {
 		values.addItemToCart(product[0]);
@@ -88,6 +89,29 @@ export const ProductPage = () => {
 						<p className="product-details">
 							Weight: {product[0]?.weight} kg
 						</p>
+						{values.isLoggedIn ? (
+							<div>
+								{itemAmount[0]?.quantity >= 1 ? (
+									<p
+										className="product-details"
+										id="number-of-products"
+									>
+										You have {itemAmount[0]?.quantity} in
+										your cart.
+									</p>
+								) : (
+									<p
+										className="product-details"
+										id="number-of-products"
+									>
+										You do not have this product in your
+										cart.
+									</p>
+								)}
+							</div>
+						) : (
+							<></>
+						)}
 					</div>
 					<div className="product-buttons-container">
 						{values.isLoggedIn ? (
@@ -100,12 +124,14 @@ export const ProductPage = () => {
 						) : (
 							<></>
 						)}
-						<button
-							className="product-button"
-							onClick={handlePurchase}
-						>
-							Purchase
-						</button>
+						{values.isLoggedIn ? (
+							<></>
+						) : (
+							<div className="login-prompt">
+								Please log in or make an account to purchase
+								this product
+							</div>
+						)}
 						{values.isLoggedIn &&
 						values.arrayofCartIds.includes(product[0]?.id) ? (
 							<button

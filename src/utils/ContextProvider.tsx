@@ -56,8 +56,6 @@ type ValueTypes = {
 	createNewCart: (userID: string) => void;
 	snapshotCart: () => Promise<DocumentData[]>;
 	addItemToCart: (prod: DocumentData) => Promise<void>;
-	purchaseItems: () => void;
-	purchaseCart: () => void;
 	removeItemFromCart: (prod: DocumentData) => Promise<void>;
 	fetchProducts: () => Promise<void>;
 	total: number | null;
@@ -165,7 +163,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		}));
 		setCart(userCart);
 		setIsLoading(false);
-		// handleTotal();
 		return userCart;
 	};
 
@@ -211,7 +208,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				await updateDoc(doc(cartsCollectionRef, newUserCart[0].id), {
 					cart: newUserCart[0].cart
 				});
-				console.log(`added item to cart ${userCart[0].id}`);
 			}
 		} else {
 			alert('Please make an account to use the cart feature');
@@ -279,10 +275,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 		}
 	};
 
-	const purchaseItems = () => {};
-
-	const purchaseCart = () => {};
-
 	return (
 		<SiteContext.Provider
 			value={{
@@ -317,8 +309,6 @@ export const ContextProvider = ({ children }: UserContextProviderProps) => {
 				createNewCart,
 				snapshotCart,
 				addItemToCart,
-				purchaseItems,
-				purchaseCart,
 				removeItemFromCart,
 				fetchProducts,
 				total,

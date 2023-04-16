@@ -20,10 +20,6 @@ export const PurchasePage = () => {
 	const values = useContext(SiteContext)!;
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	values.handleTotal();
-	// }, []);
-
 	const total = () => {
 		values.handleTotal();
 	};
@@ -587,7 +583,6 @@ export const PurchasePage = () => {
 							></input>
 						</div>
 						<div className="purchase-form-div" id="expiration-div">
-							{/* NOT DONE */}
 							<label
 								className="purchase-form-label"
 								id="expiration-label"

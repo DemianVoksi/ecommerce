@@ -46,6 +46,11 @@
   margin: 1vh;
 }
 
+#number-of-products {
+  margin-top: 15px;
+  font-weight: 700;
+}
+
 .product-buttons-container {
   display: flex;
   flex-direction: row;
@@ -66,6 +71,13 @@
 
 .product-button:hover {
   box-shadow: 0 1px 5px 0 #6f737b;
+}
+
+.login-prompt {
+  padding: 5px;
+  margin: 30px 5px;
+  color: var(--background-white);
+  background-color: red;
 }
 
 .product-price {
