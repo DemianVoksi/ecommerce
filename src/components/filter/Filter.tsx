@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import {
+	MdKeyboardDoubleArrowLeft,
+	MdKeyboardDoubleArrowRight
+} from 'react-icons/md';
 import './filter.css';
 
 /*
@@ -16,5 +21,25 @@ Make an object of all the queries and build the query from there
 */
 
 export const Filter = () => {
-	return <div className="filter-wrapper"></div>;
+	const [visibility, setVisibility] = useState(false);
+
+	return (
+		<div className={visibility ? 'filter-wrapper' : 'filter-wrapper-hide'}>
+			<div>
+				<div className="icon-wrapper">
+					{visibility ? (
+						<MdKeyboardDoubleArrowLeft
+							size={40}
+							onClick={() => setVisibility(!visibility)}
+						/>
+					) : (
+						<MdKeyboardDoubleArrowRight
+							size={40}
+							onClick={() => setVisibility(!visibility)}
+						/>
+					)}
+				</div>
+			</div>
+		</div>
+	);
 };

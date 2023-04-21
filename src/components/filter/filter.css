@@ -1,1 +1,31 @@
-.filter-wrapper {}
+.filter-wrapper {
+  height: 100%;
+  width: 400px;
+  margin-top: 70px;
+  background-color:  var(--logo-blue);
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+}
+
+.filter-wrapper-hide {
+  height: 100%;
+  width: 50px;
+  margin-top: 70px;
+  /* background-color:  var(--logo-blue); */
+  /* border: 2px solid var(--logo-blue); */
+  justify-content: flex-start;
+  /* flex-grow: 2; */
+  display: flex;
+  flex-direction: column;
+  /* transition: width 0.3s ease-in; */
+}
+
+.icon-wrapper {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
