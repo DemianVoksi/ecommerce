@@ -2,7 +2,7 @@
   height: 100%;
   width: 400px;
   margin-top: 70px;
-  background-color:  var(--logo-blue);
+  background-color: #e9e9e9;
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,6 @@
   width: 95%;
   margin: 2.5%;
   height: 100%;
-  border: 1px solid red;
 }
 
 .filter-categories-hide {
@@ -54,7 +53,6 @@
 }
 
 .filter-form {
-  border: 1px solid black;
   overflow: auto;
 }
 
@@ -70,6 +68,7 @@
 
 .fcategory-p {
   margin-left: 2em;
+  font-weight: 600;
 }
 
 .fcategory-icon {
@@ -87,4 +86,10 @@
 
 .fcategory-checkboxes-hide {
   display: none;
+}
+
+label {
+  font-family: var(--roboto);
+  font-size: 16px;
+  margin-left: 0.3em;
 }
