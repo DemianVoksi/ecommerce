@@ -93,3 +93,16 @@ label {
   font-size: 16px;
   margin-left: 0.3em;
 }
+
+.single-input, .price-wrapper {
+  margin-left: 10%;
+}
+
+.price-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.to-price, .from-price {
+  margin-right: 10px;
+}

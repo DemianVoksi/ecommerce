@@ -88,10 +88,10 @@ export const Filter = () => {
 							<div className="single-input">
 								<input
 									type="checkbox"
-									id="apple"
+									id="Apple"
 									name="Apple"
 								/>
-								<label htmlFor="apple">Apple</label>
+								<label htmlFor="Apple">Apple</label>
 							</div>
 							<div className="single-input">
 								<input type="checkbox" id="Dell" name="Dell" />
@@ -354,6 +354,7 @@ export const Filter = () => {
 								)}
 							</div>
 						</div>
+
 						<div
 							className={
 								cpuVisibility
@@ -423,6 +424,121 @@ export const Filter = () => {
 									name="m2-pro"
 								/>
 								<label htmlFor="m2-pro">Apple M2 Pro</label>
+							</div>
+						</div>
+					</div>
+
+					<div className="fcategory-wrapper">
+						<div
+							className="fcategory-show-wrapper"
+							onClick={() => setPriceVisibility(!priceVisibility)}
+						>
+							<p className="fcategory-p">Select price range</p>
+							<div className="fcategory-icon">
+								{priceVisibility ? (
+									<MdKeyboardArrowUp size={30} />
+								) : (
+									<MdKeyboardArrowDown size={30} />
+								)}
+							</div>
+						</div>
+
+						<div
+							className={
+								priceVisibility
+									? 'fcategory-checkboxes'
+									: 'fcategory-checkboxes-hide'
+							}
+						>
+							<div className="price-wrapper">
+								<div className="from-price">
+									<label className="from-price-label">
+										From:{' '}
+									</label>
+									<select className="from-price-select">
+										<option value="1000">1000 SEK</option>
+										<option value="2000">2000 SEK</option>
+										<option value="3000">3000 SEK</option>
+										<option value="4000">4000 SEK</option>
+										<option value="5000">5000 SEK</option>
+										<option value="6000">6000 SEK</option>
+										<option value="7000">7000 SEK</option>
+										<option value="8000">8000 SEK</option>
+										<option value="9000">9000 SEK</option>
+										<option value="10000">10000 SEK</option>
+										<option value="11000">11000 SEK</option>
+										<option value="12000">12000 SEK</option>
+										<option value="13000">13000 SEK</option>
+										<option value="14000">14000 SEK</option>
+										<option value="15000">15000 SEK</option>
+										<option value="16000">16000 SEK</option>
+										<option value="17000">17000 SEK</option>
+										<option value="18000">18000 SEK</option>
+										<option value="19000">19000 SEK</option>
+										<option value="20000">20000 SEK</option>
+										<option value="21000">21000 SEK</option>
+										<option value="22000">22000 SEK</option>
+										<option value="23000">23000 SEK</option>
+										<option value="24000">24000 SEK</option>
+										<option value="25000">25000 SEK</option>
+										<option value="26000">26000 SEK</option>
+										<option value="27000">27000 SEK</option>
+										<option value="28000">28000 SEK</option>
+										<option value="29000">29000 SEK</option>
+										<option value="30000">30000 SEK</option>
+										<option value="31000">31000 SEK</option>
+										<option value="32000">32000 SEK</option>
+										<option value="33000">33000 SEK</option>
+										<option value="34000">34000 SEK</option>
+										<option value="35000">35000 SEK</option>
+										<option value="36000">36000 SEK</option>
+										<option value="37000">37000 SEK</option>
+									</select>
+								</div>
+								<div className="to-price">
+									<label className="to-price-label">
+										To:{' '}
+									</label>
+									<select className="to-price-select">
+										<option value="1000">1000 SEK</option>
+										<option value="2000">2000 SEK</option>
+										<option value="3000">3000 SEK</option>
+										<option value="4000">4000 SEK</option>
+										<option value="5000">5000 SEK</option>
+										<option value="6000">6000 SEK</option>
+										<option value="7000">7000 SEK</option>
+										<option value="8000">8000 SEK</option>
+										<option value="9000">9000 SEK</option>
+										<option value="10000">10000 SEK</option>
+										<option value="11000">11000 SEK</option>
+										<option value="12000">12000 SEK</option>
+										<option value="13000">13000 SEK</option>
+										<option value="14000">14000 SEK</option>
+										<option value="15000">15000 SEK</option>
+										<option value="16000">16000 SEK</option>
+										<option value="17000">17000 SEK</option>
+										<option value="18000">18000 SEK</option>
+										<option value="19000">19000 SEK</option>
+										<option value="20000">20000 SEK</option>
+										<option value="21000">21000 SEK</option>
+										<option value="22000">22000 SEK</option>
+										<option value="23000">23000 SEK</option>
+										<option value="24000">24000 SEK</option>
+										<option value="25000">25000 SEK</option>
+										<option value="26000">26000 SEK</option>
+										<option value="27000">27000 SEK</option>
+										<option value="28000">28000 SEK</option>
+										<option value="29000">29000 SEK</option>
+										<option value="30000">30000 SEK</option>
+										<option value="31000">31000 SEK</option>
+										<option value="32000">32000 SEK</option>
+										<option value="33000">33000 SEK</option>
+										<option value="34000">34000 SEK</option>
+										<option value="35000">35000 SEK</option>
+										<option value="36000">36000 SEK</option>
+										<option value="37000">37000 SEK</option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
