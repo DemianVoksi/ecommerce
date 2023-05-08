@@ -14,7 +14,7 @@ export const ProductPage = () => {
 	let productID = useParams();
 	let productName = `${productID.id}.png`;
 	const [product, setProduct] = useState<DocumentData[]>([])!;
-	const itemAmount = values.cart[0].cart.filter(
+	const itemAmount = values.cart[0]?.cart?.filter(
 		(item: any) => item?.name === product[0]?.name
 	);
 
